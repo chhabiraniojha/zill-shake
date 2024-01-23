@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap');
+
+body {
+	font-family: Montserrat,Arial, Helvetica, sans-serif;
+	background-color:#f7f7f7;
+}
+* {box-sizing: border-box}
+
+
+.Registr_ct {
+  padding: 20px;
+  width: 95%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 30px auto;
+  background: white;
+  box-shadow: 2px 1px 21px -9px rgba(0,0,0,0.38);
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=phone] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 0 0;
+  display: inline-block;
+  border: none;
+  background: #f7f7f7;
+  font-family: Montserrat,Arial, Helvetica, sans-serif;
+  border-radius: 10px;
+}
+.Registr_ct span p {
+  margin-right: 5px;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=phone]:focus, select:focus {
+  background-color: #ddd;
+  outline: none;
+}
+.Registr_ct span {
+  display: flex;
+  align-items: center;
+}
+
+
+/* Set a style for all buttons */
+.clearfix {
+  background-color: #0eb7f4;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  text-align: center;
+  border: none;
+  width: 100%;
+  opacity: 0.9;
+  font-size: 16px;
+  font-family: Montserrat,Arial, Helvetica, sans-serif;
+  border-radius: 10px;
+}
+
+.clearfix:hover {
+  opacity:1;
+}
+
+.register_phone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  border-bottom: 2px solid;
+  padding-bottom: 10px;
+}
+.register_phone i.fa.fa-mobile {
+  font-size: 35px;
+}
+.register_phone p {
+  font-size: 20px;
+  font-style: italic;
+}
+.Registr_ct label i.fa {
+  font-size: 25px;
+  margin-right: 5px;
+}
+.I_have_an_account a.clearfix {
+  padding: 0;
+  color: #000;
+  background-color: transparent;
+  border-bottom: 1px solid;
+  border-radius: 0;
+  padding-bottom: 2px;
+}
+.form_dv {
+  margin-bottom: 10px;
+}
+.form_dv.Verification span.verifcode {
+  position: relative;
+}
+.form_dv.Verification span.verifcode button {
+  position: absolute;
+  right: 0;
+  margin-right: 5px;
+  border-radius: 15px;
+}
+.form_dv.Verification span.verifcode input[type="phone"] {
+  padding-right: 65px;
+}
+.form_dv span.error {
+  display: none;
+}
+.form_dv.error span.error {
+  display: flex;
+}
+.Login_ct .I_have_an_account a.clearfixcode {
+  text-align: center;
+  margin: 0 auto;
+  display: table;
+  border: 1px solid;
+  border-radius: 15px;
+  padding: 10px 0;
+  width: 100%;
+}
+.servicesPot {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+.servicesPot .services_tot_pot a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  border-radius: 15px;
+  padding: 5px 10px;
+}
+.servicesPot .services_tot_pot i.fa {
+  font-size: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Change styles for signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .signupbtn {
+     width: 100%;
+  }
+}

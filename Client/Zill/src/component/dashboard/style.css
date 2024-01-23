@@ -1,0 +1,142 @@
+a {
+    text-decoration: unset;
+}
+p{
+    margin: 0;
+}
+
+.welcome_game {
+    margin: 20px 0;
+}
+
+p.Welcome {
+    color: #171717;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-size: 25px;
+    margin: 0;
+}
+p.Start_Your {
+    color: #171717;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-size: 15px;
+}
+
+.reg_log_but {
+    display: flex;
+    justify-content: space-around;
+}
+
+a.reg_log_but_lin {
+    text-align: center;
+    border-radius: 0.45333rem;
+    color: #b1835a;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    padding: 5px 45px;
+    border-radius: 20px;
+}
+a.log_but {
+    color: #b1835a;
+    border: 1px solid transparent;
+    background-clip: padding-box,border-box;
+    background-image: linear-gradient(to right,#fff,#fff),linear-gradient(to bottom,#f2d5b2,#d9b38c);
+}
+a.reg_but {
+    background-color: #eccca8;
+}
+
+
+
+
+
+ /*  Slider_banner */
+
+
+
+.Slider_banner {
+    margin: 25px auto;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+
+
+
+
+
+/* claimReward */
+
+.claimReward {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 15px 0;
+    background-image: linear-gradient(to right, #e6a322 , #f7e7bc);
+    padding: 10px 5px;
+    border-radius: 15px;
+    align-items: center;
+}
+
+
+.icon_right i.fa {
+    font-size: 20px;
+    border: 2px solid;
+    padding: 6px 6px;
+    border-radius: 17px;
+}
+.Claimeded .geat_claim_reward_right p {
+    background-color: green;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    color: #fff;
+    width: 85px;
+    border-radius: 15px;
+}
+.panding .geat_claim_reward_right p {
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    color: #fff;
+    width: 85px;
+    border-radius: 15px;
+}
+.panding .geat_claim_reward_right p i.fa {
+    margin: 0 7px 0 0;
+    border: 2px solid;
+    padding: 5px;
+    font-size: 13px;
+    border-radius: 15px;
+}
+
+
+
+.claimReward .content_center p {
+    background-image: linear-gradient(to right, #f62020 , #cccc01);
+    border-radius: 15px;
+    padding: 0 4px;
+    color: #fff;
+}
+.claimRewardManeDv {
+    padding-bottom: 15px;
+    display: table;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,92 @@
+.Promotion .list-group {
+    text-align: center;
+}
+h5.pagleTitle {
+    text-align: center;
+    margin-top: 5px;
+}
+.paymentTotalUpgrade {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+    background-color: #d9b28b;
+    color: #fff;
+    padding: 20px 0;
+    height: 300px;
+}
+.paymentTotalUpgrade p {
+    margin-top: 5px;
+}
+.directSubordinates .list-group p.spanGroup {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 17px;
+}
+.Invitation {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.Invitation a.InvitationLink {
+    text-align: center;
+    color: #c15f08;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    padding: 10px 50px;
+    border-radius: 20px;
+    background-color: #eccca8;
+    margin-top: 15px;
+}
+.copyInvitation {
+    margin: 15px 0;
+    display: flex;
+    margin-bottom: 60px;
+}
+.copyInvitation ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 15px 0;
+    width: 100%;
+}
+.copyInvitation ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px  0;
+}
+.directSubordinates .list-group {
+    width: 75%;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    margin-top: -125px;
+}
+.copyInvitation ul li p i.fa {
+    margin-left: 10px;
+}
+.copyInvitation ul li a {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

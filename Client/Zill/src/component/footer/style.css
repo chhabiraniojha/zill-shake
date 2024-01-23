@@ -1,0 +1,58 @@
+.footer_icon {
+    position: fixed;
+    width: 370px;
+    bottom: 0;
+    padding-top: 10px;
+    border: 10px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    box-shadow: 0px -1px 7px 1px #eeb64b;
+    border-radius: 15px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.fot_icon {
+    text-align: center;
+}
+.footer_icon .fot_icon i.fa {
+    font-size: 20px;
+    color: #e7a628;
+}
+.fot_icon p {
+    font-size: 10px !important;
+    letter-spacing: -0.4px;
+    color: #1a2024;
+    margin-top: 4px !important;
+    font-weight: 500;
+    margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

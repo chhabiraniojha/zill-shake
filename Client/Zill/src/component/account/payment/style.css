@@ -1,0 +1,188 @@
+
+
+/* claimReward */
+
+.claimReward {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 15px 0;
+  background-image: linear-gradient(to right, #e6a322 , #f7e7bc);
+  padding: 10px 5px;
+  border-radius: 15px;
+  align-items: center;
+}
+.icon_right i.fa {
+  font-size: 20px;
+  border: 2px solid;
+  padding: 6px 6px;
+  border-radius: 17px;
+}
+.icon_right i.fa.fa-arrow-circle-o-down {
+  padding: 6px 8px;
+}
+.claimReward.panding i.fa.fa-arrow-circle-o-down {
+  color: red;
+}
+.Claimeded .geat_claim_reward_right p {
+  background-color: green;
+  display: flex;
+  align-items: center;
+  padding: 5px 12px;
+  color: #fff;
+  width: 85px;
+  border-radius: 15px;
+  justify-content: center;
+}
+.panding .geat_claim_reward_right p {
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  padding: 5px 12px;
+  color: #fff;
+  width: 85px;
+  border-radius: 15px;
+}
+.panding .geat_claim_reward_right p i.fa {
+  margin: 0 7px 0 0;
+  border: 2px solid;
+  padding: 5px;
+  font-size: 13px;
+  border-radius: 15px;
+}
+
+.claimReward .content_center p {
+  border-radius: 15px;
+  padding: 0 4px;
+  color: #fff;
+}
+.claimRewardManeDv {
+  padding-bottom: 15px;
+  display: table;
+  width: 100%;
+}
+
+
+
+
+
+
+/* WalletTitle */
+
+h4.WalletTitle {
+  text-align: center;
+  margin: 15px 0;
+}
+.Wallet_amount_show {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fad52a;
+  padding-bottom: 15px;
+}
+.Wallet_amount_show i.fa {
+  font-size: 50px;
+  margin-bottom: 2px;
+  color: #ffffff;
+  background: linear-gradient( to bottom, #f89e00, var(--card3-gradient-color2) );
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 38px;
+  box-shadow: 0px 1px 9px 4px #eeb64b;
+}
+.Wallet_amount_show p.shoe_amount {
+  font-size: 30px;
+  font-weight: 600;
+}
+.Main_wallet_totel_wallet {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  margin: 20px 0;
+  align-items: stretch;
+}
+.Main_wallet_totel_wallet p.shoe_amount {
+  width: auto;
+  height: auto;
+  border: 7px solid #f89e00;
+  border-radius: 48px;
+  padding: 30px 26px;
+}
+.Main_wallet {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.Main_wallet_totel_wallet p.Main_wallet {
+  font-size: 15px;
+  margin-top: 5px;
+}
+.Main_wallet_totel_wallet .totel_wallet p.shoe_amount {
+  width: auto;
+  height: auto;
+  border: 7px solid #f89e00;
+  border-radius: 48px;
+  padding: 30px 14px;
+}
+
+
+
+
+
+.form-group .dolloar_wallet {
+  display: flex;
+  align-items: center;
+}
+.form-group .dolloar_wallet i.fa {
+  margin-right: 10px;
+}
+.form-group .dolloar_wallet input {
+  padding: 6px 3px;
+}
+button.btn.btn_Submit {
+  text-align: center;
+  color: #eccca8;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  padding: 5px 45px;
+  border-radius: 20px;
+  background-color: #b1835a;
+  margin: 0 auto;
+  display: flex;
+  margin-top: 15px;
+}
+form.Wallet_dv_form {
+  box-shadow: 0px 1px 9px 4px #eeb64b;
+  border-radius: 15px;
+  padding: 7px 20px;
+}
+form.Wallet_dv_form label {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.amount_history {
+  margin-bottom: 50px;
+}
+.amount_history ul.nav-pills {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+.amount_history .nav-pills .nav-link.active {
+  background-color: transparent;
+  color: #000;
+  font-size: 25px;
+  border-bottom: 3px solid #f89e00;
+}
+.content_center h5 {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+}
+
