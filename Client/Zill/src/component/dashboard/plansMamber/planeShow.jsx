@@ -159,12 +159,7 @@ function PlaneShow() {
                 </div>
             </div>
 
-            <style>
-                {`
-    
-    
-    `}
-            </style>
+
         </>
     )
 }

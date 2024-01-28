@@ -26,10 +26,10 @@ function Login() {
 
 
                 <Link type="submit" className="clearfix">Login</Link>
-                <div className="I_have_an_account"><Link className="clearfixcode">Register</Link></div>
+                <div className="I_have_an_account"><Link className="clearfixcode" to="/registr">Register</Link></div>
                 <div className="servicesPot">
                     <div className="services_tot_pot">
-                        <Link to="">
+                        <Link to="/reset-password">
                             <i class='fa fa-unlock-alt'></i>
                             <p >Forgot password</p>
                         </Link>

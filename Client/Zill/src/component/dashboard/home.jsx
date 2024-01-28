@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Slider from "./slider"
-import PlaneShow from "./plansMamber/planeShow"
+import HomePlansShow from "./plansMamber/homePlansShow"
 import './style.css'
 
 
@@ -21,7 +21,7 @@ function Home() {
             </div>
 
             <Slider />
-            <PlaneShow />
+            <HomePlansShow />
         </>
     )
 }

@@ -152,8 +152,15 @@ body {
     align-items: center;
 }
 .planeShowFree {
-    display: table;
-    margin: 0 auto;
+  width: 90%;
+  display: table;
+  margin: 0 auto;
+  background: linear-gradient( to bottom, var(--card1-gradient-color1), var(--card1-gradient-color2) );
+  border-radius: 15px;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 10px 0;
 }
 .planeShowPade {
     display: flex;
@@ -163,11 +170,25 @@ body {
     text-align: center;
 }
 .planeShowPade .left_pade, .planeShowPade .right_pade {
-    width: 50%;
-    margin-bottom: 15px;
+  width: 40%;
+  padding: 4%;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  background: linear-gradient( to bottom, var(--card3-gradient-color1), var(--card3-gradient-color2) );
+  color: #fff;
+  border-radius: 15px;
+  position: relative;
 }
 
-a.pade_plane img {
+
+.lockPlan i.fa {
+  position: absolute;
+  top: 31%;
+  font-size: 90px;
+}
+
+
+.pade_plane img {
     width: 100%;
 }
 .planeShowFree a.pade_plane img, .center_pade a.pade_plane img {
@@ -175,8 +196,30 @@ a.pade_plane img {
     margin: 10px auto;
     display: table;
 }
-
-
+.planButton {
+  display: flex;
+  flex-direction: column;
+}
+.planeShowFree .planButton {
+  width: 94%;
+  margin: 0 auto;
+}
+.planButton button {
+  width: auto;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 0 5px;
+  border-color: transparent;
+  background: linear-gradient( to bottom, var(--card2-gradient-color1), var(--card2-gradient-color2) );
+  color: #fff;
+  box-shadow: 0px 0 2px 2px var(--card2-gradient-color2);
+}
+.planButton button:hover {
+  background: linear-gradient( to bottom, var(--card2-gradient-color1), var(--card2-gradient-color2) );
+  color: #fff;
+  border-bottom-color: #fff;
+}
 
 
 p.mamber_amount {
@@ -196,7 +239,9 @@ p.mamber_amount {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
-
+.lockPlan {
+  display: none;
+}
 .card-wrap.one p.mamber_amount{
   background: var(--card1-gradient-color1);
 }
@@ -206,6 +251,56 @@ p.mamber_amount {
 .card-wrap.three p.mamber_amount {
   background: var(--card3-gradient-color1);
 }
+
+.planeShowPade .active.left_pade:before,  .planeShowFree.active:before, .planeShowPade .active.right_pade:before  {
+  content: "";
+  background: #8f8f8fc7;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 15px;
+}
+.planeShowFree {
+  position: relative;
+}
+.active .lockPlan {
+  display: flex;
+  position: absolute;
+  height: 50px;
+  top: 50%;
+  width: 100%;
+  left: 0;
+  background: #7b7a7a;
+  align-items: center;
+  margin-top: -25px;
+}
+.active .lockPlan i.fa {
+  position: absolute;
+  top: 50%;
+  font-size: 25px;
+  left: 10px;
+  margin-top: -12px;
+}
+.active .lockPlan p.unlockPlan {
+  position: absolute;
+  right: 15px;
+}
+.planeShowFree .lockPlan i.fa.fa-lock {
+  left: 30%;
+}
+.planeShowFree.Vip p.unlockPlan{
+  right: 30%;
+}
+
+
+
+
+
+
+
+
 
 
 

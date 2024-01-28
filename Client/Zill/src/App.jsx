@@ -15,6 +15,7 @@ import Wallet from "./component/account/payment/wallet"
 import Promotion from "./component/account/promotion/Promotion"
 import Subordinatedata from "./component/account/promotion/Subordinatedata/Subordinatedata"
 import Order from "./component/account/order/order"
+import QrCode from "./component/account/payment/qrCode"
 import './App.css'
 
 
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/Profile-account" element={<ProfileAccount />} />
         <Route exact path="/wallet" element={<Wallet />} />
         <Route exact path="/promotion" element={<Promotion />} />
+        <Route exact path="/qrcode" element={<QrCode />} />
         <Route exact path="/order" element={<Order />} />
         <Route exact path="/subordinate-data" element={<Subordinatedata />} />
 

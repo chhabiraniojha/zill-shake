@@ -8,6 +8,13 @@ function Subordinatedata() {
 
     return (
         <>
+            <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item"><Link to="/">Home</Link></li>
+                    <li className="breadcrumb-item"><Link to="/promotion"><i className="fa fa-angle-double-left"></i> Promotion</Link></li>
+                    <li className="breadcrumb-item active" aria-current="page">Subordinate Data</li>
+                </ol>
+            </nav>
             <div className="Subordinatedata">
                 <table className="table table-success table-striped">
                     <thead>
