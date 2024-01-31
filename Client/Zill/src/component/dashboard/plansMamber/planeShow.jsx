@@ -1,21 +1,32 @@
 import { Link } from "react-router-dom";
-import Bronze from "../../../assets/img/mamberShipe/bronze.png"
-import Copper from "../../../assets/img/mamberShipe/copper.png"
-import Silver from "../../../assets/img/mamberShipe/silver.png"
-import Gold from "../../../assets/img/mamberShipe/gold.png"
-import Diamond from "../../../assets/img/mamberShipe/diamond.png"
-import Platinum from "../../../assets/img/mamberShipe/platinum.png"
-import Vip from "../../../assets/img/mamberShipe/vip.png"
+import Bronze from "../../../assets/img/mamberShipe/bronze.png";
+import Copper from "../../../assets/img/mamberShipe/copper.png";
+import Silver from "../../../assets/img/mamberShipe/silver.png";
+import Gold from "../../../assets/img/mamberShipe/gold.png";
+import Diamond from "../../../assets/img/mamberShipe/diamond.png";
+import Platinum from "../../../assets/img/mamberShipe/platinum.png";
+import Vip from "../../../assets/img/mamberShipe/vip.png";
 
-import './style.css'
-
+import "./style.css";
+import axios, { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 function PlaneShow() {
+	const buyPlan = async (plan) => {
+        console.log('chal rha hai')
+		try {
+			const res = await axios.post("http://localhost:3000/api/user/plans", { plan_id: plan }, { withCredentials: true });
+            toast.success(res.data.message)
+		} catch (error) {
+            if(error instanceof AxiosError) {
+                toast.error(error.response.data.message)
+            }
+		}
+	};
 
-    return (
-        <>
-
-            {/* <div className="planeShow">
+	return (
+		<>
+			{/* <div className="planeShow">
                 <div className="planeShowFree">
                     <Link className="pade_plane" to="/claim-reward"><img src={Free} /></Link>
                     <h4 className="Free_h4">Free</h4>
@@ -50,118 +61,143 @@ function PlaneShow() {
                 </div>
             </div> */}
 
-
-            <div className="planeShow">
-                <div className="card-wrap one">
-                    <div className="card-header">
-                        <img src={Bronze} />
-                        <h1>Bronze</h1>
-                        <p className="mamber_amount" >$19</p>
-                    </div>
-                    <div className="card-content">
-                        <p className="card-content-option true"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                        <p className="card-content-option false"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                    </div>
-                    <div className="card-footer">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button className="card-footer-btn">learn more</button>
-                    </div>
-                </div>
-                <div className="card-wrap two">
-                    <div className="card-header">
-                        <img src={Copper} />
-                        <h1>Copper</h1>
-                        <p className="mamber_amount" >$19</p>
-                    </div>
-                    <div className="card-content">
-                        <p className="card-content-option true"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                        <p className="card-content-option false"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                    </div>
-                    <div className="card-footer">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button className="card-footer-btn">learn more</button>
-                    </div>
-                </div>
-                <div className="card-wrap three">
-                    <div className="card-header">
-                        <img src={Silver} />
-                        <h1>Silver</h1>
-                        <p className="mamber_amount" >$19</p>
-                    </div>
-                    <div className="card-content">
-                        <p className="card-content-option true"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                        <p className="card-content-option false"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                    </div>
-                    <div className="card-footer">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button className="card-footer-btn">learn more</button>
-                    </div>
-                </div>
-                <div className="card-wrap three">
-                    <div className="card-header">
-                        <img src={Gold} />
-                        <h1>gold</h1>
-                        <p className="mamber_amount" >$19</p>
-                    </div>
-                    <div className="card-content">
-                        <p className="card-content-option true"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                        <p className="card-content-option false"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                    </div>
-                    <div className="card-footer">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button className="card-footer-btn">learn more</button>
-                    </div>
-                </div>
-                <div className="card-wrap three">
-                    <div className="card-header">
-                        <img src={Diamond} />
-                        <h1>Diamond</h1>
-                        <p className="mamber_amount" >$19</p>
-                    </div>
-                    <div className="card-content">
-                        <p className="card-content-option true"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                        <p className="card-content-option false"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                    </div>
-                    <div className="card-footer">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button className="card-footer-btn">learn more</button>
-                    </div>
-                </div>
-                <div className="card-wrap three">
-                    <div className="card-header">
-                        <img src={Platinum} />
-                        <h1>Platinum</h1>
-                        <p className="mamber_amount" >$19</p>
-                    </div>
-                    <div className="card-content">
-                        <p className="card-content-option true"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                        <p className="card-content-option false"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                    </div>
-                    <div className="card-footer">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button className="card-footer-btn">learn more</button>
-                    </div>
-                </div>
-                <div className="card-wrap three">
-                    <div className="card-header">
-                        <img src={Vip} />
-                        <h1>Vip</h1>
-                        <p className="mamber_amount" >$19</p>
-                    </div>
-                    <div className="card-content">
-                        <p className="card-content-option true"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                        <p className="card-content-option false"><i class="fa fa-check"></i>  Lorem ipsum dolor</p>
-                    </div>
-                    <div className="card-footer">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <button className="card-footer-btn">learn more</button>
-                    </div>
-                </div>
-            </div>
-
-
-        </>
-    )
+			<div className="planeShow">
+				<div className="card-wrap one">
+					<div className="card-header">
+						<img src={Bronze} />
+						<h1>Bronze</h1>
+						<p className="mamber_amount">$19</p>
+					</div>
+					<div className="card-content">
+						<p className="card-content-option true">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+						<p className="card-content-option false">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+					</div>
+					<div className="card-footer">
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<button className="card-footer-btn" onClick={() => buyPlan('bronze')}>Buy</button>
+					</div>
+				</div>
+				<div className="card-wrap two">
+					<div className="card-header">
+						<img src={Copper} />
+						<h1>Copper</h1>
+						<p className="mamber_amount">$19</p>
+					</div>
+					<div className="card-content">
+						<p className="card-content-option true">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+						<p className="card-content-option false">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+					</div>
+					<div className="card-footer">
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<button className="card-footer-btn" onClick={() => buyPlan('copper')}>Buy</button>
+					</div>
+				</div>
+				<div className="card-wrap three">
+					<div className="card-header">
+						<img src={Silver} />
+						<h1>Silver</h1>
+						<p className="mamber_amount">$19</p>
+					</div>
+					<div className="card-content">
+						<p className="card-content-option true">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+						<p className="card-content-option false">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+					</div>
+					<div className="card-footer">
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<button className="card-footer-btn" onClick={() => buyPlan('silver')}>Buy</button>
+					</div>
+				</div>
+				<div className="card-wrap three">
+					<div className="card-header">
+						<img src={Gold} />
+						<h1>gold</h1>
+						<p className="mamber_amount">$19</p>
+					</div>
+					<div className="card-content">
+						<p className="card-content-option true">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+						<p className="card-content-option false">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+					</div>
+					<div className="card-footer">
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<button className="card-footer-btn" onClick={() => buyPlan('gold')}>Buy</button>
+					</div>
+				</div>
+				<div className="card-wrap three">
+					<div className="card-header">
+						<img src={Diamond} />
+						<h1>Diamond</h1>
+						<p className="mamber_amount">$19</p>
+					</div>
+					<div className="card-content">
+						<p className="card-content-option true">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+						<p className="card-content-option false">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+					</div>
+					<div className="card-footer">
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<button className="card-footer-btn" onClick={() => buyPlan('diamond')}>Buy</button>
+					</div>
+				</div>
+				<div className="card-wrap three">
+					<div className="card-header">
+						<img src={Platinum} />
+						<h1>Platinum</h1>
+						<p className="mamber_amount">$19</p>
+					</div>
+					<div className="card-content">
+						<p className="card-content-option true">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+						<p className="card-content-option false">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+					</div>
+					<div className="card-footer">
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<button className="card-footer-btn" onClick={() => buyPlan('platinum')}>Buy</button>
+					</div>
+				</div>
+				<div className="card-wrap three">
+					<div className="card-header">
+						<img src={Vip} />
+						<h1>Vip</h1>
+						<p className="mamber_amount">$19</p>
+					</div>
+					<div className="card-content">
+						<p className="card-content-option true">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+						<p className="card-content-option false">
+							<i class="fa fa-check"></i> Lorem ipsum dolor
+						</p>
+					</div>
+					<div className="card-footer">
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<button className="card-footer-btn" onClick={() => buyPlan('vip')}>Buy</button>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 }
 
-export default PlaneShow
+export default PlaneShow;

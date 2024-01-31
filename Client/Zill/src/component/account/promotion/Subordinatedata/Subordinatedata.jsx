@@ -1,10 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 
 import './style.css'
+import axios from 'axios';
 
 
 function Subordinatedata() {
+
+    const [subordinates, setSubordinates] = useState([])
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/user/subordinates', { withCredentials: true })
+        .then(({ data }) => {
+            setSubordinates(data.result)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }, [])
 
     return (
         <>
@@ -26,24 +39,16 @@ function Subordinatedata() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>+91 9876543210</td>
-                            <td>$250</td>
-                            <td>$10</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>+91 9876543210</td>
-                            <td>$250</td>
-                            <td>$10</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>+91 9876543210</td>
-                            <td>$250</td>
-                            <td>$10</td>
-                        </tr>
+                        {
+                            subordinates.map((item, i) => (
+                                <tr>
+                                <th scope="row">{i}</th>
+                                <td>{item.phone}</td>
+                                <td>${item.total_rewards}</td>
+                                <td>${item.commission}</td>
+                            </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
             </div>
