@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Bronze from "../../assets/img/mamberShipe/bronze.png";
 import Copper from "../../assets/img/mamberShipe/copper.png";
 import Silver from "../../assets/img/mamberShipe/silver.png";
@@ -11,16 +11,37 @@ import Lock from "../../assets/img/mamberShipe/lock.png";
 import PlansShow from "../../component/dashboard/plansMamber/planeShow";
 import "./style.css";
 import { UserContext } from "../../context/userContext";
+import axios from "axios";
+import { CustomAlertContext } from "../../context/customAlertContext";
 
 function profileAccount() {
 
 	const { user, wallet, plans } = useContext(UserContext);
 
-	const isPlanActive = useCallback((plan) => plans.includes(plan), [plans]);
+	const isPlanActive = useCallback((plan) => (plans?.filter((currentValue) => currentValue.plan_id === plan)?.[0]), [plans]);
 
 	useEffect(() => {
 		console.log(user, wallet, plans);
 	}, [user]);
+
+	const navigation = useNavigate()
+
+	const { setType, setMessage, setOpen } = useContext(CustomAlertContext)
+	const logout = () => {
+		axios.get('http://localhost:3000/api/auth/logout', { withCredentials: true })
+		.then((res) => {
+			setType('success')
+			setMessage('logout successful')
+			setOpen(true)
+			window.location.href = '/'
+		})
+		.catch((err) => {
+			console.log(err);
+			setType('error')
+			setMessage('logout failed')
+			setOpen(true)
+		});
+	}
 
 	return (	
 		<>
@@ -31,10 +52,10 @@ function profileAccount() {
 					</div>
 					<div className="accountText">
 						<p className="usd">
-							<b>UID</b> | {user.id}{" "}
+							<b>UID</b> | {user?.id}{" "}
 						</p>
 						<p className="joinDate">
-							Last login: <span>{new Date(user.last_login).toLocaleString()}</span>
+							Last login: <span>{new Date(user?.last_login).toLocaleString()}</span>
 						</p>
 					</div>
 				</div>
@@ -42,7 +63,7 @@ function profileAccount() {
 
 			<div className="totel_amount">
 				<p>
-					Total balance <b>₹ {wallet.amount}</b>
+					Total balance <b>₹ {Array.isArray(plans) && plans.reduce((prev, currentValue) => prev + currentValue.amount, 0)}</b>
 				</p>
 			</div>
 
@@ -89,7 +110,7 @@ function profileAccount() {
 			<h4 className="chooseBuyPlan">Choose and buy your plan</h4>
 			<PlansShow />
 
-			<div className="Logout">
+			<div className="Logout" onClick={logout}>
 				<button>
 					<i class="fa fa-sign-out"></i> Log Out
 				</button>

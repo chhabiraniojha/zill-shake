@@ -8,16 +8,28 @@ import axios from 'axios';
 function Subordinatedata() {
 
     const [subordinates, setSubordinates] = useState([])
+    const [commissionData, setCommissionData] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/user/subordinates', { withCredentials: true })
+        axios.get('http://localhost:3000/api/user/todays-commission', { withCredentials: true })
         .then(({ data }) => {
-            setSubordinates(data.result)
+            console.log("subordinate", data)
+            setCommissionData(data?.result ?? [])
         })
         .catch((err) => {
             console.log(err)
         })
+
+        axios.get('http://localhost:3000/api/user/subordinates', { withCredentials: true })
+        .then(({ data }) => {
+            setSubordinates(data?.result ?? [])
+        }).catch((err) => {
+            console.log(err)
+        })
+
     }, [])
+
+    const getCommissionOfPhone = (phone) => commissionData.filter((item) => item.phone === phone)?.[0]
 
     return (
         <>
@@ -44,8 +56,8 @@ function Subordinatedata() {
                                 <tr>
                                 <th scope="row">{i}</th>
                                 <td>{item.phone}</td>
-                                <td>${item.total_rewards}</td>
-                                <td>${item.commission}</td>
+                                <td>${getCommissionOfPhone(item.phone)?.totalReward ?? 0}</td>
+                                <td>${getCommissionOfPhone(item.phone)?.totalCommission ?? 0}</td>
                             </tr>
                             ))
                         }

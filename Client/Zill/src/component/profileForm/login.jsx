@@ -1,38 +1,90 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import axios, { AxiosError } from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import { CustomAlertContext } from "../../context/customAlertContext";
 
 function Login() {
 	const [form, setForm] = useState({
 		phone: "",
 		password: "",
 	});
-	const [loading, setLoading] = useState(false)
+	const [seePassword, setSeePassword] = useState(false);
+	const [error, setError] = useState({});
+	const [loading, setLoading] = useState(false);
 
 	const handleInput = (e) => {
+		setError({
+			field: "",
+			message: "",
+		});
 		const { target } = e;
 		const { name, value } = target;
+		if(target.name === 'phone' && isNaN(value)) return;
 		setForm((prev) => ({
 			...prev,
 			[name]: value,
 		}));
 	};
 
+	const navigate = useNavigate();
+
+    const { setMessage, setOpen, setType } = useContext(CustomAlertContext)
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			setLoading(true)
+
+			if (form.phone === "") {
+				setType("error");
+				setMessage("wrong phone number");
+				setOpen(true);
+				setError({
+					field: "phone",
+					message: "Phone number is required",
+				});
+				return;
+			}
+
+			if (form.phone.length < 10) {
+				setType("error");
+				setMessage("wrong phone number");
+				setOpen(true);
+				setError({
+					field: "phone",
+					message: "phone should be atleast 10 characters long",
+				});
+				return;
+			}
+
+			if (form.password === "") {
+				setType("error");
+				setMessage("Password is required");
+				setOpen(true);
+				setError({
+					field: "password",
+					message: "Password is required",
+				});
+				return;
+			}
+
+
+			setLoading(true);
 			const res = await axios.post("http://localhost:3000/api/auth/login", form, { withCredentials: true });
-			toast.success(res.data?.message)
+			setType("success");
+			setMessage(res.data.message);
+			setOpen(true);
+			navigate("/");
 		} catch (error) {
 			console.log(error);
 			if (error instanceof AxiosError) {
-				toast.error(error?.response?.data?.message);
+				setType("error");
+				setMessage(error.response?.data?.message);
+				setOpen(true);
 			}
 		} finally {
-			setLoading(false)
+			setLoading(false);
 		}
 	};
 
@@ -53,18 +105,42 @@ function Login() {
 					</label>
 					<span>
 						<p>+91</p>
-						<input name="phone" type="text" placeholder="Please enter the phone number" required onChange={handleInput} value={form.phone} />
+						<input name="phone" type="text" placeholder="Please enter the phone number" onChange={handleInput} value={form.phone} />
 					</span>
+					{
+						error.field === 'phone' && <p style={{ color: 'red' }}>{error.message}</p>
+					}
 				</div>
-				<div className="form_dv">
+				<div className="form_dv password_input_container">
 					<label for="psw">
 						<b>
 							<i class="fa fa-unlock-alt"></i> Password
 						</b>
 					</label>
-					<input type="password" placeholder="Please enter Set password" name="password" required onChange={handleInput} value={form.password} />
+					<input type={seePassword ? 'text' : 'password'} placeholder="Please enter Set password" name="password" onChange={handleInput} value={form.password} />
+					{seePassword ? (
+							<img
+								width="20"
+								height="20"
+								className="password_input_eye"
+								src="https://img.icons8.com/ios-glyphs/30/000000/visible--v1.png"
+								alt="visible--v1"
+								onClick={() => setSeePassword(!seePassword)}
+							/>
+						) : (
+							<img
+								width="20"
+								height="20"
+								onClick={() => setSeePassword(!seePassword)}
+								className="password_input_eye"
+								src="https://img.icons8.com/ios-glyphs/30/blind.png"
+								alt="blind"
+							/>
+						)}
 				</div>
-
+				{
+					error.field === 'password' && <p style={{ color: 'red' }}>{error.message}</p>
+				}
 				<button type="submit" className="clearfix" disabled={loading}>
 					Login
 				</button>

@@ -21,43 +21,70 @@ const registerUser = async (req, res) => {
 			});
 		}
 
-		const id = uuid();
-		const walletId = uuid();
-		const hashedPassword = await bcrypt.hash(password, 10);
-		const refferalCode = Math.round(Math.random() * 10000);
-		console.table({
-			id,
-			walletId,
-			hashedPassword,
-			refferalCode,
-		});
-
-		// First, insert the record into the wallet table
-		connection.query(`INSERT INTO wallet (id, user_id) VALUES (?, ?)`, [walletId, id], (err, results) => {
+		// Check if the phone number is already registered
+		connection.query(`SELECT * FROM users WHERE phone = ?`, [phone], async (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(400).json({
 					success: false,
-					message: "Failed to create wallet",
+					message: "Failed to check phone number",
 				});
 			}
 
-			// Then, insert the record into the users table
-			const query = `INSERT INTO users (id, password, phone, refferal_code, invite_code, wallet_id) VALUES (?, ?, ?, ?, ?, ?)`;
-			connection.query(query, [id, hashedPassword, phone, refferalCode, invite_code, walletId], (err, results) => {
+			if (results.length > 0) {
+				return res.status(400).json({
+					success: false,
+					message: "Phone number already registered",
+				});
+			}
+
+			connection.query("SELECT * FROM users WHERE refferal_code = ?", [invite_code], async (err, results) => {
 				if (err) {
 					console.log(err);
 					return res.status(400).json({
 						success: false,
-						message: "Failed to register user",
+						message: "Failed to check invite code",
 					});
 				}
 
-				connection.query(`UPDATE users SET total_refferals = total_refferals + 1 WHERE refferal_code = ?`, [results?.[0].invite_code])
+				if (results.length === 0) {
+					return res.status(400).json({
+						success: false,
+						message: "Invalid invite code",
+					});
+				}
 
-				res.json({
-					success: true,
-					message: "Successfully registered",
+				const id = uuid();
+				const walletId = uuid();
+				const hashedPassword = await bcrypt.hash(password, 10);
+
+				// First, insert the record into the wallet table
+				connection.query(`INSERT INTO wallet (id, user_id) VALUES (?, ?)`, [walletId, id], (err) => {
+					if (err) {
+						console.log(err);
+						return res.status(400).json({
+							success: false,
+							message: "Failed to create wallet",
+						});
+					}
+
+					const query = `INSERT INTO users (id, password, phone, invite_code, wallet_id, refferal_code) VALUES (?, ?, ?, ?, ?, ?)`;
+					connection.query(query, [id, hashedPassword, phone, invite_code, walletId, phone], (err, results) => {
+						if (err) {
+							console.log(err);
+							return res.status(400).json({
+								success: false,
+								message: "Failed to register user",
+							});
+						}
+
+						connection.query(`UPDATE users SET total_refferals = total_refferals + 1 WHERE refferal_code = ?`, [invite_code]);
+
+						res.json({
+							success: true,
+							message: "Successfully registered",
+						});
+					});
 				});
 			});
 		});
@@ -78,7 +105,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
 	try {
 		const { phone, password } = req.body ?? {};
-		console.table({ phone, password })
+		console.table({ phone, password });
 
 		if (!phone || !password) {
 			return res.status(400).json({
@@ -87,7 +114,7 @@ const loginUser = async (req, res) => {
 			});
 		}
 
-		connection.query(`SELECT * FROM users WHERE phone= ?`,[phone], async (err, results) => {
+		connection.query(`SELECT * FROM users WHERE phone= ?`, [phone], async (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(400).json({
@@ -96,33 +123,30 @@ const loginUser = async (req, res) => {
 				});
 			}
 
-			if(results.length === 0) {
-				return res
-				.status(404)
-				.json({
+			if (results.length === 0) {
+				return res.status(404).json({
 					success: false,
-					message: "No user found"
-				})
+					message: "Phone number is not registered pls sign up first",
+				});
 			}
-
 
 			const checkPassword = await bcrypt.compare(password, results?.[0]?.password);
 
 			if (!checkPassword) {
 				return res.status(401).json({
 					success: false,
-					message: "Credentials doesn't match",
+					message: "Incorrect password",
 				});
 			}
 
 			const token = jwt.sign(JSON.stringify(results?.[0]), process.env.JWT_SECRET);
 
-			connection.query(`UPDATE users SET last_login = ? WHERE id = ?`, [Date.now(), results[0].id])
+			connection.query(`UPDATE users SET last_login = ? WHERE id = ?`, [Date.now(), results[0].id]);
 
 			res.cookie("token", token, {
-				maxAge: 1000 * 60 * 60 * 24 * 7
+				maxAge: 1000 * 60 * 60 * 24 * 7,
 			}).json({
-				success: true, 
+				success: true,
 				message: "Successfully logged in user",
 				result: results?.[0],
 			});

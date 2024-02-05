@@ -5,12 +5,10 @@ import "./style.css";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 
-function Home() {
-	const { user } = useContext(UserContext);
-
+function Home({ auth }) {
 	return (
 		<>
-			{!user && (
+			{!auth && (
 				<div className="log_reg_but">
 					<div class="welcome_game">
 						<p className="Welcome">Welcome to BigMumbai</p>
@@ -20,7 +18,7 @@ function Home() {
 						<Link className="reg_log_but_lin log_but" to="/login">
 							Log In
 						</Link>
-						<Link className="reg_log_but_lin reg_but" to="/registr">
+						<Link className="reg_log_but_lin reg_but" to="/register">
 							Register
 						</Link>
 					</div>

@@ -1,0 +1,14 @@
+div.succesfull_pupu img {
+	/* width: 150px; */
+	margin: 30px auto;
+}
+.succesfull_pupu, .succesfull_pupu .modal-footer {
+	text-align: center;
+	margin: 0 auto;
+	z-index: 9999;
+}
+button.endClose {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}

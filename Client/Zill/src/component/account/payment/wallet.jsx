@@ -5,19 +5,75 @@ import "./style.css";
 import { UserContext } from "../../../context/userContext";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { Modal } from "react-bootstrap";
+import { CustomAlertContext } from "../../../context/customAlertContext";
 
 function Wallet() {
+
+	const { user } = useContext(UserContext)
+
 	const [amount, setAmount] = useState(0);
+	const [walletAddress, setWalletAddress] = useState("");
 	const [transactions, setTransactions] = useState([]);
+	const [openConfirmationForm, setOpenConfirmationForm] = useState(false);
+	const [openSuccessModal, setOpenSuccessModal] = useState(false);
+	const [phone, setPhone] = useState(user?.phone);
+	const [lifeTimeWalletCredited, setLifeTimeWalletCredited] = useState(0);
 
 	const { wallet } = useContext(UserContext);
+	const { open, setOpen, type, setType, message, setMessage } = useContext(CustomAlertContext)
 
 	const addMoney = async (e) => {
 		e.preventDefault();
+		if(amount < 0.10) {
+			setType('error');
+			setMessage('Amount should be greater than $0.10');
+			setOpen(true);
+			return;
+		}
+
+		if(wallet.amount < amount) {
+			setType('error');
+			setMessage('Insufficient balance');
+			setOpen(true);
+			return;
+		}
+
+		setOpenConfirmationForm(true);
+	};
+
+	const handleConfirmationFormSubmit = (e) => {
+		e.preventDefault();
 		try {
-			const res = await axios.post("http://localhost:3000/api/wallet/add", { amount }, { withCredentials: true });
-            getTransactions()
-			toast.success(res.data.message);
+			axios.post('http://localhost:3000/api/user/withdraw', {
+				amount,
+				wallet_address: walletAddress,
+			}, { withCredentials: true })
+			.then(({ data }) => {
+				setOpenConfirmationForm(false);
+				setOpenSuccessModal(true);
+				setAmount(0);
+			}).catch((err) => {
+				if(err instanceof AxiosError) {
+					setType('error');
+					setMessage(err.response.data.message);
+					setOpen(true);
+				}
+			})
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				setType("error");
+				setMessage(error.response.data.message);
+				setOpen(true);
+			}
+		}
+	}
+
+	const getTransactions = async () => {
+		try {
+			const res = await axios.get("http://localhost:3000/api/user/transactions", { withCredentials: true });
+			setTransactions(res.data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+			console.log("transactions -> ", res.data);
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				toast.error(error.response.data.message);
@@ -25,21 +81,22 @@ function Wallet() {
 		}
 	};
 
-	const getTransactions = async () => {
-		try {
-			const res = await axios.get("http://localhost:3000/api/user/transactions", { withCredentials: true });
-            setTransactions(res.data.result)
-            console.log("transactions -> ", res.data)
-		} catch (error) {
-            if (error instanceof AxiosError) {
-				toast.error(error.response.data.message);
-			}
-        }
-	};
+	useEffect(() => {
+		getTransactions();
 
-    useEffect(() => {
-        getTransactions()
-    }, [])
+		axios
+		.get("http://localhost:3000/api/user/life-time-wallet-credited", { withCredentials: true })
+		.then(({ data }) => {
+			setLifeTimeWalletCredited(data.totalCredited);
+		})
+		.catch((err) => {
+			if (err instanceof AxiosError) {
+				setType("error");
+				setMessage(err.response.data.message);
+				setOpen(true);
+			}
+		});
+	}, []);
 
 	return (
 		<>
@@ -52,11 +109,11 @@ function Wallet() {
 				</div>
 				<div className="Main_wallet_totel_wallet">
 					<div className="Main_wallet">
-						<p className="shoe_amount">$1.50</p>
-						<p className="Main_wallet">Main wallet</p>
+						<p className="shoe_amount">$0.10</p>
+						<p className="Main_wallet">min withdrawal</p>
 					</div>
 					<div className="totel_wallet">
-						<p className="shoe_amount">$100000</p>
+						<p className="shoe_amount">${lifeTimeWalletCredited}</p>
 						<p className="Main_wallet">totel wallet</p>
 					</div>
 				</div>
@@ -72,7 +129,9 @@ function Wallet() {
 								id="exampleInputEmail1"
 								aria-describedby="emailHelp"
 								placeholder="Asmount Add"
+								value={amount}
 								onChange={(e) => setAmount(Number(e.target.value))}
+								step={0.01}
 							/>
 						</div>
 						{/* <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> */}
@@ -114,7 +173,7 @@ function Wallet() {
 												</div>
 												<div className="content_center">
 													<h5>
-														<b>Transactions Id</b> {item.id}
+														<b>Transactions Id ( {item.tag} )</b> {item.id}
 													</h5>
 													<p>{new Date(item.created_at).toLocaleDateString()}</p>
 												</div>
@@ -134,9 +193,10 @@ function Wallet() {
 												</div>
 												<div className="content_center">
 													<h5>
-														<b>Transactions Id</b>{item.id}
+													<b>Transactions Id ( {item.tag} )</b> {item.id}
+														{item.id}
 													</h5>
-													<p>{new Date(item.created_at).toLocaleDateString()}</p>
+													<p>{new Date(item.created_at).toDateString('en-IN')}</p>
 												</div>
 												<div className="amount_get">
 													<p>${item.amount}</p>
@@ -182,6 +242,40 @@ function Wallet() {
 					</div>
 				</div>
 			</div>
+            <Modal show={openConfirmationForm} onHide={() => setOpenConfirmationForm(false)} centered>
+				<Modal.Header>Withdraw Confirmation Form</Modal.Header>
+				<Modal.Body>
+					<form onSubmit={handleConfirmationFormSubmit}>
+						<div className="mb-3">
+							<label htmlFor="walletAddress" className="form-label">Wallet Address</label>
+							<input type="text" className="form-control" id="walletAddress" value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)}  required	/>
+						</div>
+						<div className="mb-3">
+							<label htmlFor="phone" className="form-label ">Phone</label>
+							<input type="text" className="form-control" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)}  required	/>
+						</div>
+						<div className="mb-3">
+							<label htmlFor="amount" className="form-label">Amount</label>
+							<input type="number" className="form-control" id="amount" value={amount} onChange={(e) => setAmount(e.target.value)} required	/>
+						</div>
+						<button type="submit" className="btn btn-success mb-2">
+							Submit
+						</button>
+						<button type="button" className="btn btn-danger mb-2" onClick={() => setOpenConfirmationForm(false)}>
+							Cancel
+						</button>
+					</form>
+				</Modal.Body>
+			</Modal>
+            <Modal show={openSuccessModal} onHide={() => setOpenSuccessModal(false)} centered>
+				<Modal.Header>Success</Modal.Header>
+				<Modal.Body>
+					<p>Your withdrawal request is on status pending pls wait for 1 ~ 3 days to transfer in you're wallet</p>
+				</Modal.Body>
+				<Modal.Footer>
+					<button className="btn btn-success" onClick={() => setOpenSuccessModal(false)}>Ok</button>
+				</Modal.Footer>
+			</Modal>
 		</>
 	);
 }

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import Header from "./component/navbar/header";
 import Footer from "./component/footer/Footer";
 import Registr from "./component/profileForm/registration";
@@ -19,30 +19,68 @@ import QrCode from "./component/account/payment/qrCode";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import UserProvider from "./context/userContext";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
+import TerminationForm from "./component/account/plan/terminatePlanForm";
+import axios from "axios";
+import {CustomAlertProvider} from "./context/customAlertContext";
+import Support from "./component/support/support";
 
 function App() {
-	return (
-		<UserProvider>
-				<Header />
+	const [userAuthenticated, setUserAuthenticated] = useState(true);
+	const [loading, setLoading] = useState(false);
 
-				<Routes>
-					<Route exact path="/" element={<Home />} />
-					<Route exact path="/register" element={<Registr />} />
-					<Route exact path="/login" element={<Login />} />
-					<Route exact path="/claim-reward" element={<ClaimReward />} />
-					<Route exact path="/reset-password" element={<ResetPassword />} />
-					<Route exact path="/Profile-account" element={<ProfileAccount />} />
-					<Route exact path="/wallet" element={<Wallet />} />
-					<Route exact path="/promotion" element={<Promotion />} />
-					<Route exact path="/qrcode" element={<QrCode />} />
-					<Route exact path="/order" element={<Order />} />
-					<Route exact path="/subordinate-data" element={<Subordinatedata />} />
-				</Routes>
+	const location = useLocation();
+
+	useEffect(() => {
+		setLoading(true);
+		axios
+			.get("http://localhost:3000/api/user/me", { withCredentials: true })
+			.then((res) => {
+				console.log(res);
+				setUserAuthenticated(true);
+			})
+			.catch((err) => {
+				setUserAuthenticated(false);
+				if (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/") {
+					window.location.href = "/#/login";
+				}
+			})
+			.finally(() => {
+				setLoading(false);
+			});
+	}, [location]);
+
+	return (
+		<CustomAlertProvider>
+			<UserProvider>
+				<Header />
+				{!loading ? (
+					<Routes>
+						<Route exact path="/" element={<Home auth={userAuthenticated} />} />
+						{userAuthenticated && (
+							<>
+								<Route exact path="/claim-reward/:plan" element={<ClaimReward />} />
+								<Route exact path="/reset-password" element={<ResetPassword />} />
+								<Route exact path="/Profile-account" element={<ProfileAccount />} />
+								<Route exact path="/wallet" element={<Wallet />} />
+								<Route exact path="/promotion" element={<Promotion />} />
+								<Route exact path="/qrcode" element={<QrCode />} />
+								<Route exact path="/order" element={<Order />} />
+								<Route exact path="/subordinate-data" element={<Subordinatedata />} />
+								<Route exact path="/terminate" element={<TerminationForm />} />
+								<Route exact path="/support" element={<Support />} />
+							</>
+						)}
+						<Route exact path="/register" element={<Registr />} />
+						<Route exact path="/login" element={<Login />} />
+					</Routes>
+				) : (
+					<div>Wait Checking Auth Validation...</div>
+				)}
 				<Footer />
-			<ToastContainer/>
-		</UserProvider>
+				{/* <ToastContainer limit={2} /> */}
+			</UserProvider>
+		</CustomAlertProvider>
 	);
 }
 

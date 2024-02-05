@@ -1,24 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import axios, { AxiosError } from "axios";
+import { UserContext } from "../../../context/userContext";
 
 function order() {
-	const [orders, setOrders] = useState([]);
 
-	useEffect(() => {
-		axios
-			.get("http://localhost:3000/api/user/orders", { withCredentials: true })
-			.then(({ data }) => {
-				console.log(data.result);
-                setOrders(data.result)
-			})
-			.catch((err) => {
-				if (err instanceof AxiosError) {
-					console.log(err);
-				}
-			});
-	}, []);
+	const { orders } = useContext(UserContext);
 
 	return (
 		<>
@@ -44,7 +32,7 @@ function order() {
 				<div className="tab-content" id="pills-tabContent">
 					<div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 						<div className="claimRewardManeDv">
-							{orders.map((order) => {
+							{orders?.map((order) => {
 								if (order.status === "pending") {
 									return (
 										<div className="claimReward panding">
@@ -53,7 +41,7 @@ function order() {
 											</div>
 											<div className="content_center">
 												<h5>
-													<b>Order Id</b> {order.amount}
+													<b>{order.id}</b> {order.amount}
 												</h5>
 												<p>{new Date(order.created_at).toDateString()}</p>
 											</div>
@@ -73,7 +61,7 @@ function order() {
 											</div>
 											<div className="content_center">
 												<h5>
-													<b>Order Id</b>{order.amount}
+													<b>{order.id}</b>{order.amount}
 												</h5>
 												<p>{new Date(order.created_at).toDateString()}</p>
 											</div>

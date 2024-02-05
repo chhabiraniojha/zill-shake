@@ -1,48 +1,57 @@
-const { Request, Response, NextFunction } = require('express')
-const jwt = require('jsonwebtoken')
+const { Request, Response, NextFunction } = require("express");
+const jwt = require("jsonwebtoken");
+const { connection } = require("../sql/connection");
 
 /**
- * 
- * @param { Request } req 
- * @param { Response } res 
+ *
+ * @param { Request } req
+ * @param { Response } res
  * @param { NextFunction } next
  */
 const authMiddleware = async (req, res, next) => {
-    try {
+	try {
+		const { token } = req.cookies;
 
-        const { token } = req.cookies
+		if (!token) {
+			return res.status(401).json({
+				success: false,
+				message: "Unauthorized access",
+			});
+		}
 
-        if(!token) {
-            return res
-            .status(401)
-            .json({
-                success: false,
-                message: "Unauthorized access"
-            })
-        }
-        
-        const decodedUser = await jwt.verify(token, process.env.JWT_SECRET)
+		const decodedUser = await jwt.verify(token, process.env.JWT_SECRET);
 
-        if(!decodedUser) {
-            return res
-            .status(401)
-            .json({
-                success: false,
-                message: "Token verfication failed"
-            })
-        }
+		if (!decodedUser) {
+			return res.status(401).json({
+				success: false,
+				message: "Token verfication failed",
+			});
+		}
 
-        req['user'] = decodedUser
-        next()
+		connection.query("SELECT * FROM users WHERE id = ?", [decodedUser.id], (err, result) => {
+			if (err) {
+				return res.status(500).json({
+					success: false,
+					message: "Internal Server Error",
+				});
+			}
 
-    } catch (error) {
-        res
-        .status(500)
-        .json({
-            success: false,
-            message: "Internal Server Error"
-        })
-    }
-}
+			if (result.length === 0) {
+				return res.status(401).json({
+					success: false,
+					message: "User not found",
+				});
+			}
 
-module.exports = authMiddleware
+			req["user"] = result?.[0];
+			next();
+		});
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			message: "Internal Server Error",
+		});
+	}
+};
+
+module.exports = authMiddleware;
