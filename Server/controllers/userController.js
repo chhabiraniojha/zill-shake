@@ -2,6 +2,7 @@ const { connection } = require("../sql/connection");
 const { v4: uuid } = require("uuid");
 const express = require('express')
 
+
 const getMe = (req, res) => {
 	try {
 		const { user } = req;
@@ -191,18 +192,42 @@ const terminatePlan = (req, res) => {
 const getOrders = (req, res) => {
 	try {
 		const { user } = req;
-		connection.query(`SELECT * FROM orders WHERE user_id = ?`, [user.id], (err, result) => {
+		const limit = req.query.limit || 10; // Default limit is 10, can be changed as per requirement
+		const page = req.query.page || 1; // Default page is 1, can be changed as per requirement
+
+		const startIndex = (page - 1) * limit;
+		const endIndex = page * limit;
+
+		const countQuery = `SELECT COUNT(*) as total FROM orders WHERE user_id = ?`;
+		const selectQuery = `SELECT * FROM orders WHERE user_id = ? LIMIT ?, ?`;
+
+		connection.query(countQuery, [user.id], (err, countResult) => {
 			if (err) {
 				return res.status(400).json({
 					success: false,
-					message: "Cannot fetch order's",
+					message: "Cannot fetch order count",
 				});
 			}
 
-			res.json({
-				success: true,
-				message: "Order's fetched successfully",
-				result,
+			console.log(countResult[0].total)
+
+			const totalOrders = countResult[0].total;
+			const totalPages = Math.ceil(totalOrders / limit);
+
+			connection.query(selectQuery, [user.id, startIndex, limit], (err, result) => {
+				if (err) {
+					return res.status(400).json({
+						success: false,
+						message: "Cannot fetch orders",
+					});
+				}
+
+				res.json({
+					success: true,
+					message: "Orders fetched successfully",
+					result,
+					totalPages,
+				});
 			});
 		});
 	} catch (error) {
@@ -244,7 +269,13 @@ const myWallet = async (req, res) => {
 const myTransactions = (req, res) => {
 	try {
 		const { user } = req;
-		connection.query(`SELECT * FROM transactions WHERE user_id = ?`, [user.id], (err, result) => {
+		const { pageNumber, pageOffset } = req.query;
+		const limit = 10; // Number of transactions per page
+
+		const startIndex = (Number(pageNumber) - 1) * limit;
+		const endIndex = Number(pageNumber) * limit;
+
+		connection.query(`SELECT COUNT(*) as total FROM transactions WHERE user_id = ?`, [user.id], (err, countResult) => {
 			if (err) {
 				return res.status(400).json({
 					success: false,
@@ -252,10 +283,23 @@ const myTransactions = (req, res) => {
 				});
 			}
 
-			res.json({
-				success: true,
-				message: "Successfully fetched transaction's",
-				result,
+			const totalTransactions = countResult[0].total;
+			const totalPages = Math.ceil(totalTransactions / limit);
+
+			connection.query(`SELECT * FROM transactions WHERE user_id = ? LIMIT ?, ?`, [user.id, startIndex, limit], (err, result) => {
+				if (err) {
+					return res.status(400).json({
+						success: false,
+						message: "Failed to fetch transactions",
+					});
+				}
+
+				res.json({
+					success: true,
+					message: "Successfully fetched transactions",
+					result,
+					totalPages
+				});
 			});
 		});
 	} catch (error) {

@@ -5,12 +5,11 @@ import "./style.css";
 import { UserContext } from "../../../context/userContext";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { CustomAlertContext } from "../../../context/customAlertContext";
 
 function Wallet() {
-
-	const { user } = useContext(UserContext)
+	const { user } = useContext(UserContext);
 
 	const [amount, setAmount] = useState(0);
 	const [walletAddress, setWalletAddress] = useState("");
@@ -19,22 +18,25 @@ function Wallet() {
 	const [openSuccessModal, setOpenSuccessModal] = useState(false);
 	const [phone, setPhone] = useState(user?.phone);
 	const [lifeTimeWalletCredited, setLifeTimeWalletCredited] = useState(0);
+	const [page, setPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	const { wallet } = useContext(UserContext);
-	const { open, setOpen, type, setType, message, setMessage } = useContext(CustomAlertContext)
+	const { open, setOpen, type, setType, message, setMessage } = useContext(CustomAlertContext);
 
 	const addMoney = async (e) => {
 		e.preventDefault();
-		if(amount < 0.10) {
-			setType('error');
-			setMessage('Amount should be greater than $0.10');
+		if (amount < 0.1) {
+			setType("error");
+			setMessage("Amount should be greater than $0.10");
 			setOpen(true);
 			return;
 		}
 
-		if(wallet.amount < amount) {
-			setType('error');
-			setMessage('Insufficient balance');
+		if (wallet.amount < amount) {
+			setType("error");
+			setMessage("Insufficient balance");
 			setOpen(true);
 			return;
 		}
@@ -45,21 +47,27 @@ function Wallet() {
 	const handleConfirmationFormSubmit = (e) => {
 		e.preventDefault();
 		try {
-			axios.post('http://localhost:3000/api/user/withdraw', {
-				amount,
-				wallet_address: walletAddress,
-			}, { withCredentials: true })
-			.then(({ data }) => {
-				setOpenConfirmationForm(false);
-				setOpenSuccessModal(true);
-				setAmount(0);
-			}).catch((err) => {
-				if(err instanceof AxiosError) {
-					setType('error');
-					setMessage(err.response.data.message);
-					setOpen(true);
-				}
-			})
+			axios
+				.post(
+					"http://localhost:3000/api/user/withdraw",
+					{
+						amount,
+						wallet_address: walletAddress,
+					},
+					{ withCredentials: true }
+				)
+				.then(({ data }) => {
+					setOpenConfirmationForm(false);
+					setOpenSuccessModal(true);
+					setAmount(0);
+				})
+				.catch((err) => {
+					if (err instanceof AxiosError) {
+						setType("error");
+						setMessage(err.response.data.message);
+						setOpen(true);
+					}
+				});
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				setType("error");
@@ -67,12 +75,14 @@ function Wallet() {
 				setOpen(true);
 			}
 		}
-	}
+	};
 
 	const getTransactions = async () => {
 		try {
-			const res = await axios.get("http://localhost:3000/api/user/transactions", { withCredentials: true });
+			const query = new URLSearchParams({ pageNumber: page });
+			const res = await axios.get(`http://localhost:3000/api/user/transactions?${query.toString()}`, { withCredentials: true });
 			setTransactions(res.data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+			setTotalPages(res.data?.totalPages ?? 0);
 			console.log("transactions -> ", res.data);
 		} catch (error) {
 			if (error instanceof AxiosError) {
@@ -85,18 +95,18 @@ function Wallet() {
 		getTransactions();
 
 		axios
-		.get("http://localhost:3000/api/user/life-time-wallet-credited", { withCredentials: true })
-		.then(({ data }) => {
-			setLifeTimeWalletCredited(data.totalCredited);
-		})
-		.catch((err) => {
-			if (err instanceof AxiosError) {
-				setType("error");
-				setMessage(err.response.data.message);
-				setOpen(true);
-			}
-		});
-	}, []);
+			.get("http://localhost:3000/api/user/life-time-wallet-credited", { withCredentials: true })
+			.then(({ data }) => {
+				setLifeTimeWalletCredited(data.totalCredited);
+			})
+			.catch((err) => {
+				if (err instanceof AxiosError) {
+					setType("error");
+					setMessage(err.response.data.message);
+					setOpen(true);
+				}
+			});
+	}, [page]);
 
 	return (
 		<>
@@ -164,6 +174,9 @@ function Wallet() {
 					<div className="tab-content" id="pills-tabContent">
 						<div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 							<div className="claimRewardManeDv">
+								{
+									transactions.length === 0 && <p>No transactions available</p>
+								}
 								{transactions.map((item) => {
 									if (item.status === "pending") {
 										return (
@@ -193,10 +206,10 @@ function Wallet() {
 												</div>
 												<div className="content_center">
 													<h5>
-													<b>Transactions Id ( {item.tag} )</b> {item.id}
+														<b>Transactions Id ( {item.tag} )</b> {item.id}
 														{item.id}
 													</h5>
-													<p>{new Date(item.created_at).toDateString('en-IN')}</p>
+													<p>{new Date(item.created_at).toDateString("en-IN")}</p>
 												</div>
 												<div className="amount_get">
 													<p>${item.amount}</p>
@@ -208,6 +221,9 @@ function Wallet() {
 										);
 									}
 								})}
+								{
+									loading && <p>Loading...</p>
+								}
 							</div>
 						</div>
 						{/* <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -241,22 +257,39 @@ function Wallet() {
                         </div> */}
 					</div>
 				</div>
+				<div style={{ display: "flex", gap: 2, justifyItems: "space-between" }}>
+					<Button disabled={page <= 1} onClick={() => setPage((prev) => prev - 1)}>&larr; Previous</Button>
+					<Button disabled={totalPages <= page} onClick={() => setPage((prev) => prev + 1)}>Next &rarr;</Button>
+				</div>
 			</div>
-            <Modal show={openConfirmationForm} onHide={() => setOpenConfirmationForm(false)} centered>
+			<Modal show={openConfirmationForm} onHide={() => setOpenConfirmationForm(false)} centered>
 				<Modal.Header>Withdraw Confirmation Form</Modal.Header>
 				<Modal.Body>
 					<form onSubmit={handleConfirmationFormSubmit}>
 						<div className="mb-3">
-							<label htmlFor="walletAddress" className="form-label">Wallet Address</label>
-							<input type="text" className="form-control" id="walletAddress" value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)}  required	/>
+							<label htmlFor="walletAddress" className="form-label">
+								Wallet Address
+							</label>
+							<input
+								type="text"
+								className="form-control"
+								id="walletAddress"
+								value={walletAddress}
+								onChange={(e) => setWalletAddress(e.target.value)}
+								required
+							/>
 						</div>
 						<div className="mb-3">
-							<label htmlFor="phone" className="form-label ">Phone</label>
-							<input type="text" className="form-control" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)}  required	/>
+							<label htmlFor="phone" className="form-label ">
+								Phone
+							</label>
+							<input type="text" className="form-control" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
 						</div>
 						<div className="mb-3">
-							<label htmlFor="amount" className="form-label">Amount</label>
-							<input type="number" className="form-control" id="amount" value={amount} onChange={(e) => setAmount(e.target.value)} required	/>
+							<label htmlFor="amount" className="form-label">
+								Amount
+							</label>
+							<input type="number" className="form-control" id="amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
 						</div>
 						<button type="submit" className="btn btn-success mb-2">
 							Submit
@@ -267,13 +300,15 @@ function Wallet() {
 					</form>
 				</Modal.Body>
 			</Modal>
-            <Modal show={openSuccessModal} onHide={() => setOpenSuccessModal(false)} centered>
+			<Modal show={openSuccessModal} onHide={() => setOpenSuccessModal(false)} centered>
 				<Modal.Header>Success</Modal.Header>
 				<Modal.Body>
 					<p>Your withdrawal request is on status pending pls wait for 1 ~ 3 days to transfer in you're wallet</p>
 				</Modal.Body>
 				<Modal.Footer>
-					<button className="btn btn-success" onClick={() => setOpenSuccessModal(false)}>Ok</button>
+					<button className="btn btn-success" onClick={() => setOpenSuccessModal(false)}>
+						Ok
+					</button>
 				</Modal.Footer>
 			</Modal>
 		</>

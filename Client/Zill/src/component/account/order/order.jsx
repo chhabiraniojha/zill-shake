@@ -3,10 +3,35 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import axios, { AxiosError } from "axios";
 import { UserContext } from "../../../context/userContext";
+import { Button } from "react-bootstrap";
 
 function order() {
 
-	const { orders } = useContext(UserContext);
+	const [orders, setOrders] = useState([]);
+	const [page, setPage] = useState(1);
+	const [totalPages , setTotalPages] = useState(0);
+	const [loading, setLoading] = useState(false);
+
+
+	useEffect(() => {
+		// orders
+		setLoading(true);
+		const query = new URLSearchParams({ page });
+		axios
+        .get(`http://localhost:3000/api/user/orders?${query.toString()}`, { withCredentials: true })
+        .then(({ data }) => {
+            console.log(data.result);
+            setOrders(data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+			setLoading(false);
+			setTotalPages(data.totalPages);
+        })
+        .catch((err) => {
+            if (err instanceof AxiosError) {
+                console.log(err);
+            }
+        });
+	}
+	, [page]);
 
 	return (
 		<>
@@ -32,6 +57,12 @@ function order() {
 				<div className="tab-content" id="pills-tabContent">
 					<div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 						<div className="claimRewardManeDv">
+							{
+								orders.length === 0 && <h1>No Orders</h1>
+							}
+							{
+								loading && <h1>Loading...</h1>
+							}
 							{orders?.map((order) => {
 								if (order.status === "pending") {
 									return (
@@ -76,7 +107,11 @@ function order() {
 								}
 							})}
 						</div>
-					</div>
+						<div style={{ display: "flex", gap: 2, justifyItems: "space-between" }}>
+					<Button disabled={page <= 1} onClick={() => setPage((prev) => prev - 1)}>&larr; Previous</Button>
+					<Button disabled={totalPages <= page} onClick={() => setPage((prev) => prev + 1)}>Next &rarr;</Button>
+				</div>
+									</div>
 					{/* <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <div className="claimRewardManeDv">
                             <div className="claimReward Claimeded">

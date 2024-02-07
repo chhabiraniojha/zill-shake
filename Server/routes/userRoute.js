@@ -22,4 +22,5 @@ userRouter
 .get('/life-time-commission', authMiddleware, lifeTimeComissionEarned)
 .get('/life-time-wallet-credited', authMiddleware, lifeTimeWalletCredited)
 
+
 module.exports = userRouter

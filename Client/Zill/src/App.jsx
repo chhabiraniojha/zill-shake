@@ -41,7 +41,7 @@ function App() {
 			})
 			.catch((err) => {
 				setUserAuthenticated(false);
-				if (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/") {
+				if (location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/" && location.pathname !== "/reset-password") {
 					window.location.href = "/#/login";
 				}
 			})
@@ -49,6 +49,8 @@ function App() {
 				setLoading(false);
 			});
 	}, [location]);
+
+
 
 	return (
 		<CustomAlertProvider>
@@ -60,7 +62,6 @@ function App() {
 						{userAuthenticated && (
 							<>
 								<Route exact path="/claim-reward/:plan" element={<ClaimReward />} />
-								<Route exact path="/reset-password" element={<ResetPassword />} />
 								<Route exact path="/Profile-account" element={<ProfileAccount />} />
 								<Route exact path="/wallet" element={<Wallet />} />
 								<Route exact path="/promotion" element={<Promotion />} />
@@ -71,6 +72,7 @@ function App() {
 								<Route exact path="/support" element={<Support />} />
 							</>
 						)}
+						<Route exact path="/reset-password" element={<ResetPassword />} />
 						<Route exact path="/register" element={<Registr />} />
 						<Route exact path="/login" element={<Login />} />
 					</Routes>

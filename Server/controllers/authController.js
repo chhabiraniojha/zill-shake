@@ -4,6 +4,7 @@ const { v4: uuid } = require("uuid");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
 /**
  *
  * @param { Request } req
@@ -160,7 +161,61 @@ const loginUser = async (req, res) => {
 	}
 };
 
+const resetPassword = async (req, res) => {
+	try {
+		const { phone, password } = req.body ?? {};
+		console.table({ phone, password });
+
+		if (!phone || !password) {
+			return res.status(400).json({
+				success: false,
+				message: "Missing fields",
+			});
+		}
+
+		connection.query(`SELECT * FROM users WHERE phone = ?`, [phone], async (err, results) => {
+			if (err) {
+				console.log(err);
+				return res.status(400).json({
+					success: false,
+					message: "Failed to check phone number",
+				});
+			}
+
+			if (results.length === 0) {
+				return res.status(404).json({
+					success: false,
+					message: "Phone number not registered",
+				});
+			}
+
+			const hashedPassword = await bcrypt.hash(password, 10);
+			connection.query(`UPDATE users SET password = ? WHERE phone = ?`, [hashedPassword, phone], (err, results) => {
+				if (err) {
+					console.log(err);
+					return res.status(400).json({
+						success: false,
+						message: "Failed to reset password",
+					});
+				}
+
+				res.json({
+					success: true,
+					message: "Successfully reset password",
+				});
+			});
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			success: false,
+			message: "Internal Server Error",
+		});
+	}
+}
+
 module.exports = {
 	registerUser,
 	loginUser,
+	resetPassword
 };
