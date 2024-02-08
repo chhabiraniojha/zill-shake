@@ -3,6 +3,7 @@ const { connection } = require("../sql/connection");
 const { v4: uuid } = require("uuid");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { verifyOTP } = require("./otp");
 
 
 /**
@@ -163,7 +164,19 @@ const loginUser = async (req, res) => {
 
 const resetPassword = async (req, res) => {
 	try {
-		const { phone, password } = req.body ?? {};
+		const { phone, password, otp } = req.body ?? {};
+		
+		// check otp
+		const result = await verifyOTP(phone, otp);
+		console.log(result)
+
+		if (!result) {
+			return res.status(400).json({
+				success: false,
+				message: "Invalid OTP",
+			});
+		}
+
 		console.table({ phone, password });
 
 		if (!phone || !password) {

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/userContext";
 import { Modal, Form, Button } from "react-bootstrap";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 
 function TerminationForm() {
@@ -13,6 +13,7 @@ function TerminationForm() {
 
     const [getPlanDetails, setPlanDetails] = useState()
 
+	const navigate = useNavigate()
 	const handleTerminationFormHandler = async (e) => {
 		console.log("chal rha hai");
 		e.preventDefault();
@@ -29,6 +30,7 @@ function TerminationForm() {
 				.then(({ data }) => {
 					setOpenSuccessModal(true);
 					console.log(data);
+					navigate('/')
 				})
 				.catch((err) => {
 					if (err instanceof AxiosError) {

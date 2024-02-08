@@ -11,6 +11,7 @@ const walletRouter = require('./routes/walletRoute')
 const tasksRouter = require('./routes/tasksRoute')
 const planRouter = require('./routes/planRoute')
 const supportRouter = require('./routes/supportRoute')
+const otpRouter = require('./routes/otpRoute')
 
 // db
 require('./sql/connection')
@@ -33,6 +34,7 @@ app.use('/api/wallet', walletRouter)
 app.use('/api/tasks', tasksRouter)
 app.use('/api/plan', planRouter)
 app.use('/api/support', supportRouter)
+app.use('/api/otp', otpRouter)
 
 app.listen(port, () => {
     console.log(`server is running on http://localhost:${port}`)

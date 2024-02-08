@@ -58,10 +58,10 @@ function order() {
 					<div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 						<div className="claimRewardManeDv">
 							{
-								orders.length === 0 && <h1>No Orders</h1>
+								orders.length === 0 && <h5>No Orders</h5>
 							}
 							{
-								loading && <h1>Loading...</h1>
+								loading && <h5>Loading...</h5>
 							}
 							{orders?.map((order) => {
 								if (order.status === "pending") {
