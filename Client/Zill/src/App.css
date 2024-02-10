@@ -9,8 +9,9 @@ div#root {
 input {
     font-size: 15px;
 }
+
 .mane_bg {
-    width: 400px;
+    max-width: 100vw;
     height: 100vh;
     margin: 0 auto;
     background-color: #fff;
@@ -18,21 +19,32 @@ input {
     position: relative;
     overflow-x: scroll;
     padding-bottom: 55px;
+    padding-top: 65px;
 }
 
 
 
+*::-webkit-scrollbar{
+    display: none;
+}
+div#root {
+    background-color: gray;
+    height: 100vh;
+    width: 100%;
+}
+input {
+    font-size: 15px;
+}
 
+@media (min-width: 481px) {
+    .mane_bg {
+        width: 400px;
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+@media (max-width: 480px) {
+    .mane_bg {
+        max-width: 100vw;
+        height: 100vh;
+    }
+}

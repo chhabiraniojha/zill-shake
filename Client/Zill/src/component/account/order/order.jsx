@@ -71,8 +71,8 @@ function order() {
 												<i class="fa fa-arrow-circle-o-down"></i>
 											</div>
 											<div className="content_center">
-												<h5>
-													<b>{order.id}</b> {order.amount}
+												<h5 title={order.id}>
+												<b>{(order.id).split('-').splice(0, 2).join('-')}...</b>
 												</h5>
 												<p>{new Date(order.created_at).toDateString()}</p>
 											</div>
@@ -91,8 +91,8 @@ function order() {
 												<i class="fa fa-check"></i>
 											</div>
 											<div className="content_center">
-												<h5>
-													<b>{order.id}</b>{order.amount}
+												<h5 title={order.id}>
+													<b>{(order.id).split('-').splice(0, 2).join('-')}...</b>
 												</h5>
 												<p>{new Date(order.created_at).toDateString()}</p>
 											</div>

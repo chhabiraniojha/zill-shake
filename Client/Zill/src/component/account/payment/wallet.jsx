@@ -185,8 +185,8 @@ function Wallet() {
 													<i class="fa fa-arrow-circle-o-down"></i>
 												</div>
 												<div className="content_center">
-													<h5>
-														<b>Transactions Id ( {item.tag} )</b> {item.id}
+												<h5 title={item.id}>
+														<b>Transactions Id ( {item.tag} )</b> {('item.id').split('-').splice(0, 1).join('-')}
 													</h5>
 													<p>{new Date(item.created_at).toLocaleDateString()}</p>
 												</div>
@@ -205,13 +205,12 @@ function Wallet() {
 													<i class="fa fa-check"></i>
 												</div>
 												<div className="content_center">
-													<h5>
-														<b>Transactions Id ( {item.tag} )</b> {item.id}
-														{item.id}
+													<h5 title={item.id}>
+													<b>Transactions Id ( {item.tag} )</b> {(item.id).split('-').splice(0, 2).join('-')}...
 													</h5>
 													<p>{new Date(item.created_at).toDateString("en-IN")}</p>
 												</div>
-												<div className="amount_get">
+												<div className="amount_get mx-2">
 													<p>${item.amount}</p>
 												</div>
 												<div className="geat_claim_reward_right">
