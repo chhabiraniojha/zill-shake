@@ -20,10 +20,6 @@ function profileAccount() {
 
 	const isPlanActive = useCallback((plan) => (plans?.filter((currentValue) => currentValue.plan_id === plan)?.[0]), [plans]);
 
-	useEffect(() => {
-		console.log(user, wallet, plans);
-	}, [user]);
-
 	const navigation = useNavigate()
 
 	const { setType, setMessage, setOpen } = useContext(CustomAlertContext)
@@ -55,7 +51,7 @@ function profileAccount() {
 							<b>UID</b> | {user?.id}{" "}
 						</p>
 						<p className="joinDate">
-							Last login: <span>{new Date(user?.last_login).toLocaleString()}</span>
+							Phone: <span>{user?.phone}</span>
 						</p>
 					</div>
 				</div>
@@ -63,7 +59,7 @@ function profileAccount() {
 
 			<div className="totel_amount">
 				<p>
-					Total balance <b>₹ {Array.isArray(plans) && plans.reduce((prev, currentValue) => prev + currentValue.amount, 0)}</b>
+					Total balance <b>$ {Array.isArray(plans) && Number(plans.reduce((prev, currentValue) => prev + currentValue.amount, 0)).toFixed(2)}</b>
 				</p>
 			</div>
 

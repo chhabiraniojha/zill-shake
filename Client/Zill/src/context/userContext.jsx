@@ -21,7 +21,6 @@ const UserProvider = ({ children }) => {
         // user detail's
         axios.get('http://localhost:3000/api/user/me', { withCredentials: true })
         .then(({ data }) => {
-            console.log(data.result)
             setUser(data.result)
         })
         .catch((err) => {
@@ -55,7 +54,6 @@ const UserProvider = ({ children }) => {
         axios
         .get("http://localhost:3000/api/user/orders", { withCredentials: true })
         .then(({ data }) => {
-            console.log(data.result);
             setOrders(data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
         })
         .catch((err) => {
@@ -67,7 +65,6 @@ const UserProvider = ({ children }) => {
         axios
         .get("http://localhost:3000/api/user/transactions", { withCredentials: true })
         .then(({ data }) => {
-            console.log(data.result);
             setTransactions(data.result);
         })
         .catch((err) => {

@@ -17,7 +17,6 @@ function ClaimReward() {
 	const { open, message, type, setType, setOpen, setMessage } = useContext(CustomAlertContext)
 
 	const claimReward = (taskId) => {
-		console.log("taskId ->", taskId)
 		setLoading(true)
 		axios
 			.get(`http://localhost:3000/api/tasks/claim/${plan}/${taskId}`, {
@@ -47,9 +46,7 @@ function ClaimReward() {
 				withCredentials: true,
 			})
 			.then((res) => {
-				console.log(res.data.result);
 				setTasks(res.data.result);
-				console.log("tasksData ->", res.data.result);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -63,7 +60,6 @@ function ClaimReward() {
 				withCredentials: true,
 			})
 			.then((res) => {
-				console.log("claimed rewards ->", res.data.result);
 				setClaimedTasks(res.data.result);
 			})
 			.catch((err) => {

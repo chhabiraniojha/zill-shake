@@ -10,7 +10,6 @@ async function sendOtp(phoneNumber) {
 async function verifyOtp(confirmationResult, code) {
 	try {
 		const result = await confirmationResult.confirm(code);
-    console.log(result)
     return result
 	} catch (error) {
 		console.error("Error during OTP verification: ", error);

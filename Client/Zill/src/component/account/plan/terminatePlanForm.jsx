@@ -15,7 +15,6 @@ function TerminationForm() {
 
 	const navigate = useNavigate()
 	const handleTerminationFormHandler = async (e) => {
-		console.log("chal rha hai");
 		e.preventDefault();
 		try {
 			axios
@@ -29,7 +28,6 @@ function TerminationForm() {
 				})
 				.then(({ data }) => {
 					setOpenSuccessModal(true);
-					console.log(data);
 					navigate('/')
 				})
 				.catch((err) => {
@@ -37,7 +35,6 @@ function TerminationForm() {
 						toast.error(err.response.data.message);
 					}
 				});
-			console.log("yaha tak aa gya");
 		} catch (error) {
 			console.log(error);
 			if (error instanceof AxiosError) {

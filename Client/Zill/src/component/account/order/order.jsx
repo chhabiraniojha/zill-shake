@@ -20,7 +20,6 @@ function order() {
 		axios
         .get(`http://localhost:3000/api/user/orders?${query.toString()}`, { withCredentials: true })
         .then(({ data }) => {
-            console.log(data.result);
             setOrders(data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 			setLoading(false);
 			setTotalPages(data.totalPages);
@@ -72,9 +71,9 @@ function order() {
 											</div>
 											<div className="content_center">
 												<h5 title={order.id}>
-												<b>{(order.id).split('-').splice(0, 2).join('-')}...</b>
+												<b>{('order.id').split('-')[0]}...</b>
 												</h5>
-												<p>{new Date(order.created_at).toDateString()}</p>
+												<p>{new Date(order.created_at).toLocaleDateString()}</p>
 											</div>
 											<div className="amount_get">
 												<p>${order.amount}</p>
@@ -94,7 +93,7 @@ function order() {
 												<h5 title={order.id}>
 													<b>{(order.id).split('-').splice(0, 2).join('-')}...</b>
 												</h5>
-												<p>{new Date(order.created_at).toDateString()}</p>
+												<p>{new Date(order.created_at).toLocaleDateString()}</p>
 											</div>
 											<div className="amount_get">
 												<p>${order.amount}</p>

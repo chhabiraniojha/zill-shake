@@ -168,7 +168,6 @@ const resetPassword = async (req, res) => {
 		
 		// check otp
 		const result = await verifyOTP(phone, otp);
-		console.log(result)
 
 		if (!result) {
 			return res.status(400).json({

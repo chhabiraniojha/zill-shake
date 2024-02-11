@@ -107,7 +107,6 @@ function ResetPassword() {
 				password: form.password,
 				otp,
 			});
-			console.log(res);
 			setFormSubmitLoading(false);
 			setType("success");
 			setMessage("Password reset successfully");

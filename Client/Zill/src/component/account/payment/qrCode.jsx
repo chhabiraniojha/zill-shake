@@ -15,7 +15,6 @@ function Wallet() {
 	const [modalMessage, setModalMessage] = useState("");
 
 	const buyPlan = async (plan) => {
-		console.log("chal rha hai");
 		try {
 			setIsLoading(true);
 			const res = await axios.post(
@@ -23,7 +22,6 @@ function Wallet() {
 				{ plan_id: searchParam.get("plan"), transaction_hash: transactionHash },
 				{ withCredentials: true }
 			);
-			console.log(res.data.result);
 			setModalMessage(res.data.message);
 			setShowModal(true);
 		} catch (error) {

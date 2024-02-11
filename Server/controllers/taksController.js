@@ -40,7 +40,6 @@ const claimRewardFromTasks = async (req, res) => {
 		const { user } = req;
 		let { taskId, planId } = req.params ?? {};
 		taskId = Number(taskId);
-		console.log(user);
 		if (!taskId || !planId) {
 			return res.status(400).json({
 				success: false,
@@ -82,7 +81,6 @@ const claimRewardFromTasks = async (req, res) => {
 
 					// Check if user is subscribed to the plan
 					const checkForIfUserIsSubscribedToPlan = user.plans.filter((plan) => plan.plan_id === task.plan)?.[0];
-					console.log(checkForIfUserIsSubscribedToPlan);
 					if (!checkForIfUserIsSubscribedToPlan) {
 						return res.status(404).json({
 							success: false,
@@ -103,7 +101,6 @@ const claimRewardFromTasks = async (req, res) => {
 
 						// Commission
 						const commission = (task.reward * plan.commission_percentage) / 100;
-						console.log(commission);
 
 						// Add reward to claimed_rewards
 						connection.query(

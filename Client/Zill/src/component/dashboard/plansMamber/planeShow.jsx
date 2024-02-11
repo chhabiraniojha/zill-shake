@@ -28,11 +28,7 @@ function PlaneShow() {
 	const getTerminatePlanStatus = (plan) => orders?.filter((currentValue) => currentValue.plan === plan && currentValue.tag === "terminate")?.[0]?.status;
 
 	useEffect(() => {
-		console.log("User: ", user, "Wallet: ", wallet, "Plans: ", plans, "Orders: ", orders);
 
-		console.log("");
-		console.log("terminate plan status:", getTerminatePlanStatus("terminate"));
-		console.log("buy plan status:", getBuyPlanStatus("terminate"));
 	}, [user, wallet, plans, orders]);
 
 	const terminatePlan = (plan) => {

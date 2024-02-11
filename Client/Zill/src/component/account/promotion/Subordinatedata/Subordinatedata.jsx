@@ -13,7 +13,6 @@ function Subordinatedata() {
     useEffect(() => {
         axios.get('http://localhost:3000/api/user/todays-commission', { withCredentials: true })
         .then(({ data }) => {
-            console.log("subordinate", data)
             setCommissionData(data?.result ?? [])
         })
         .catch((err) => {

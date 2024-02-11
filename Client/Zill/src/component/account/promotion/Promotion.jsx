@@ -13,12 +13,10 @@ function Promotion() {
 	const [lifetimeCommission, setLifetimeCommission] = useState(0);
 
 	useEffect(() => {
-		console.log(user);
 
 		axios
 			.get("http://localhost:3000/api/user/todays-commission", { withCredentials: true })
 			.then(({ data }) => {
-				console.log(data);
 				setTodaysCommission(data.result.reduce((acc, item) => acc + item?.totalCommission, 0));
 			})
 			.catch((err) => {
@@ -28,7 +26,6 @@ function Promotion() {
 		axios
 			.get("http://localhost:3000/api/user/total-commission", { withCredentials: true })
 			.then(({ data }) => {
-				console.log(data);
 				setTotalCommission(data?.totalCommission ?? 0);
 			})
 			.catch((err) => {
@@ -38,7 +35,6 @@ function Promotion() {
 		axios
 			.get("http://localhost:3000/api/user/life-time-commission", { withCredentials: true })
 			.then(({ data }) => {
-				console.log(data);
 				setLifetimeCommission(data?.totalCommission ?? 0);
 			})
 			.catch((err) => {

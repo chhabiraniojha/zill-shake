@@ -10,13 +10,14 @@ h5.pagleTitle {
     flex-direction: column;
     align-items: center;
     margin: 10px 0;
-    background-color: #d9b28b;
+    background-color: #e7a628;
     color: #fff;
     padding: 20px 0;
     height: 300px;
 }
 .paymentTotalUpgrade p {
     margin-top: 5px;
+    text-align: center;
 }
 .directSubordinates .list-group p.spanGroup {
     display: flex;

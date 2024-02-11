@@ -36,6 +36,13 @@ input {
     font-size: 15px;
 }
 
+.loading-wait-text {
+    height: 100%;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+}
+
 @media (min-width: 481px) {
     .mane_bg {
         width: 400px;

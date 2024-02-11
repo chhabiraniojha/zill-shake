@@ -83,7 +83,6 @@ function Wallet() {
 			const res = await axios.get(`http://localhost:3000/api/user/transactions?${query.toString()}`, { withCredentials: true });
 			setTransactions(res.data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 			setTotalPages(res.data?.totalPages ?? 0);
-			console.log("transactions -> ", res.data);
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				toast.error(error.response.data.message);
@@ -123,8 +122,8 @@ function Wallet() {
 						<p className="Main_wallet">min withdrawal</p>
 					</div>
 					<div className="totel_wallet">
-						<p className="shoe_amount">${lifeTimeWalletCredited}</p>
-						<p className="Main_wallet">totel wallet</p>
+						<p className="shoe_amount">${lifeTimeWalletCredited ?? 0}</p>
+						<p className="Main_wallet">total withdrawal</p>
 					</div>
 				</div>
 
@@ -181,12 +180,12 @@ function Wallet() {
 									if (item.status === "pending") {
 										return (
 											<div className="claimReward panding">
-												<div className="icon_right">
+												<div className="icon_right mx-2">
 													<i class="fa fa-arrow-circle-o-down"></i>
 												</div>
 												<div className="content_center">
 												<h5 title={item.id}>
-														<b>Transactions Id ( {item.tag} )</b> {('item.id').split('-').splice(0, 1).join('-')}
+														<b>Transactions Id <br/> ( {item.tag} )</b> {('item.id').split('-').splice(0, 1).join('-')}
 													</h5>
 													<p>{new Date(item.created_at).toLocaleDateString()}</p>
 												</div>
@@ -201,14 +200,14 @@ function Wallet() {
 									} else {
 										return (
 											<div className="claimReward Claimeded">
-												<div className="icon_right">
+												<div className="icon_right mx-2">
 													<i class="fa fa-check"></i>
 												</div>
 												<div className="content_center">
 													<h5 title={item.id}>
 													<b>Transactions Id ( {item.tag} )</b> {(item.id).split('-').splice(0, 2).join('-')}...
 													</h5>
-													<p>{new Date(item.created_at).toDateString("en-IN")}</p>
+													<p>{new Date(item.created_at).toLocaleDateString("en-IN")}</p>
 												</div>
 												<div className="amount_get mx-2">
 													<p>${item.amount}</p>

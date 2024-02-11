@@ -62,7 +62,6 @@ const addPlan = (req, res) => {
 	try {
 		const { user } = req;
 		const { plan_id, transaction_hash } = req.body ?? {};
-		console.log(plan_id, transaction_hash)
 		if (
 			plan_id !== "bronze" &&
 			plan_id !== "copper" &&
@@ -81,7 +80,6 @@ const addPlan = (req, res) => {
 		}
 
 		connection.query(`SELECT * FROM orders WHERE user_id = ? AND plan = ? AND status = ? AND tag = ?`, [user.id, plan_id, 'pending', 'buy'], (err, result) => {
-			console.log(result)
 			if (err) {
 				return res.status(400).json({
 					success: false,
@@ -89,7 +87,6 @@ const addPlan = (req, res) => {
 				});
 			}
 
-			console.log(result)
 
 			if (result.length > 0) {
 				return res.status(400).json({
@@ -209,7 +206,6 @@ const getOrders = (req, res) => {
 				});
 			}
 
-			console.log(countResult[0].total)
 
 			const totalOrders = countResult[0].total;
 			const totalPages = Math.ceil(totalOrders / limit);
@@ -242,7 +238,6 @@ const getOrders = (req, res) => {
 const myWallet = async (req, res) => {
 	try {
 		const { user } = req;
-		console.log(user.id);
 		connection.query(`SELECT * FROM wallet WHERE id = ?`, [user.wallet_id], (err, result) => {
 			if (err) {
 				return res.status(400).json({
@@ -314,7 +309,6 @@ const myTransactions = (req, res) => {
 const mySubordinates = (req, res) => {
 	try {
 		const { user } = req;
-		console.log("user refferal code", user.refferal_code)
 		connection.query("SELECT phone FROM users WHERE invite_code = ?", [user.refferal_code], (err, result) => {
 			if (err) {
 				return res.status(400).json({
@@ -433,7 +427,6 @@ const withDrawBalance = (req, res) => {
 	try {
 		const { user } = req;
 		const { amount, wallet_address }  = req.body ?? {}
-		console.log(amount, wallet_address)
 
 		if(!amount || !wallet_address) {
 			return res.status(400).json({

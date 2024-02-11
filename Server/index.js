@@ -151,7 +151,6 @@ const tables = [
 tables.forEach((table) => {
 	connection.query(table, function (err, results, fields) {
 		if (err) throw err;
-		console.log("Table created!");
 	});
 });
 

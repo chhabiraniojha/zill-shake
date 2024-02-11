@@ -24,6 +24,7 @@ import TerminationForm from "./component/account/plan/terminatePlanForm";
 import axios from "axios";
 import {CustomAlertProvider} from "./context/customAlertContext";
 import Support from "./component/support/support";
+import CommissionDetails from "./component/commission-details/page";
 
 function App() {
 	const [userAuthenticated, setUserAuthenticated] = useState(true);
@@ -36,7 +37,6 @@ function App() {
 		axios
 			.get("http://localhost:3000/api/user/me", { withCredentials: true })
 			.then((res) => {
-				console.log(res);
 				setUserAuthenticated(true);
 			})
 			.catch((err) => {
@@ -75,9 +75,10 @@ function App() {
 						<Route exact path="/reset-password" element={<ResetPassword />} />
 						<Route exact path="/register" element={<Registr />} />
 						<Route exact path="/login" element={<Login />} />
+						<Route exact path='/commission-details' element={<CommissionDetails />} />
 					</Routes>
 				) : (
-					<div>Wait Checking Auth Validation...</div>
+					<div className="loading-wait-text">Wait Checking Auth Validation...</div>
 				)}
 				<Footer />
 				{/* <ToastContainer limit={2} /> */}

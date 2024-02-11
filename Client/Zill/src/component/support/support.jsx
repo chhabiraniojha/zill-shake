@@ -38,19 +38,14 @@ function Support() {
 	const getTerminatedOrders = orders.filter((order) => order.tag === "terminate");
 
 	useEffect(() => {
-		console.log(transactions);
-		console.log("selectedIssue ->", selectedIssue);
 		if (selectedIssue === "1") {
 			setWhichOtherIdToShow("order");
-			console.log(orders);
 		}
 		if (selectedIssue === "4") {
 			setWhichOtherIdToShow("withdrawal");
-			console.log(getClaimRewardTransactions);
 		}
 		if (selectedIssue === "3") {
 			setWhichOtherIdToShow("refferalReward");
-			console.log("refferalReward");
 		}
 		if (selectedIssue === "2") {
 			setWhichOtherIdToShow("termination");
