@@ -93,7 +93,7 @@ const tables = [
     )`,
 	`CREATE TABLE IF NOT EXISTS tasks (
       id int NOT NULL AUTO_INCREMENT,
-      reward decimal(10,10) NOT NULL,
+      reward decimal(10, 5) NOT NULL,
       plan varchar(255) NOT NULL,
       name varchar(255) NOT NULL,
       image varchar(255) NOT NULL,
@@ -109,9 +109,7 @@ const tables = [
       wallet_address varchar(255) NOT NULL,
       updated_at timestamp NOT NULL,
       tag enum('commission','reward','withdraw','') NOT NULL,
-      PRIMARY KEY (id),
-      KEY transaction_user_id (user_id),
-      CONSTRAINT transaction_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+      PRIMARY KEY (id)
     )`,
 	`CREATE TABLE IF NOT EXISTS users (
       id varchar(255) NOT NULL,

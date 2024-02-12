@@ -144,16 +144,18 @@ input[type=text]:focus, input[type=password]:focus, input[type=tel]:focus, selec
 }
 .servicesPot {
   display: flex;
-  justify-content: space-between;
   margin: 15px 0;
+  gap: 15px;
 }
 .servicesPot .services_tot_pot a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   border: 1px solid;
   border-radius: 15px;
   padding: 5px 10px;
+  gap: 5px;
 }
 .servicesPot .services_tot_pot i.fa {
   font-size: 25px;

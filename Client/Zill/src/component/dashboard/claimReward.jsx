@@ -28,7 +28,7 @@ function ClaimReward() {
 					setType("success");
 					setMessage(res.data.message);
 					setOpen(true);
-				}, 6000)
+				}, 4000)
 			})
 			.catch((err) => {
 				console.log(err);
@@ -39,6 +39,11 @@ function ClaimReward() {
 				}
 			})
 	};
+
+	useEffect(() => {
+		setType("loading");
+		setOpen(loading);
+	}, [loading])
 
 	useEffect(() => {
 		axios
@@ -132,14 +137,12 @@ function ClaimReward() {
 					}
 				})}
 			</div>
-			<Modal show={loading} onHide={() => setLoading(false)}>
+			<Modal show={loading}>
 			<Modal.Header>
 				<Modal.Title>Claim Reward</Modal.Title>
 			</Modal.Header>
 			<Modal.Body className="d-flex justify-content-center align-items-center">
-				<Spinner animation="border" role="status">
-					<span className="visually-hidden">Loading...</span>
-				</Spinner>
+				<Spinner/>
 			</Modal.Body>
 			</Modal>
 			</>
