@@ -18,7 +18,7 @@ function TerminationForm() {
 		e.preventDefault();
 		try {
 			axios
-				.delete(`http://localhost:3000/api/user/plans/${searchParam.get("plan")}`, {
+				.delete(`${import.meta.env.VITE_BASE_URL}/api/user/plans/${searchParam.get("plan")}`, {
 					data: {
 						amount: Number(getPlanDetails?.amount),
 						wallet_address: walletAddress,

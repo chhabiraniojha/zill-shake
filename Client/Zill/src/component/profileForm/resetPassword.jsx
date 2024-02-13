@@ -39,7 +39,7 @@ function ResetPassword() {
 	const handleOtp = async () => {
 		setOtpLoading(true);
 		axios
-			.post("http://localhost:3000/api/otp/send", { phoneNumber: `+91${form.phone}` })
+			.post(`${import.meta.env.VITE_BASE_URL}/api/otp/send`, { phoneNumber: `+91${form.phone}` })
 			.then((res) => {
 				let second = 60 * 3;
 				otpTimerId.current = setInterval(() => {
@@ -102,7 +102,7 @@ function ResetPassword() {
 
 		try {
 			setFormSubmitLoading(true);
-			const res = await axios.post("http://localhost:3000/api/auth/reset-password", {
+			const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/reset-password`, {
 				phone: `+91${form.phone}`,
 				password: form.password,
 				otp,

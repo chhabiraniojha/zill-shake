@@ -35,7 +35,7 @@ function App() {
 	useEffect(() => {
 		setLoading(true);
 		axios
-			.get("http://localhost:3000/api/user/me", { withCredentials: true })
+			.get(`${import.meta.env.VITE_BASE_URL}/api/user/me`, { withCredentials: true })
 			.then((res) => {
 				setUserAuthenticated(true);
 			})

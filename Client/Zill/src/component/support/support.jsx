@@ -22,7 +22,7 @@ function Support() {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:3000/api/support/issues", { withCredentials: true })
+			.get(`${import.meta.env.VITE_BASE_URL}/api/support/issues`, { withCredentials: true })
 			.then(({ data }) => {
 				setIssuesList(data.result);
 			})

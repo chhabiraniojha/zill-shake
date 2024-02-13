@@ -11,8 +11,8 @@ function Home({ auth }) {
 			{!auth && (
 				<div className="log_reg_but">
 					<div class="welcome_game">
-						<p className="Welcome">Welcome to BigMumbai</p>
-						<p className="Start_Your">Start Your Super Jackpot Journey</p>
+						<p className="Welcome">Welcome to Zill Money</p>
+						<p className="Start_Your">Start Your Happy Journey</p>
 					</div>
 					<div className="reg_log_but">
 						<Link className="reg_log_but_lin log_but" to="/login">

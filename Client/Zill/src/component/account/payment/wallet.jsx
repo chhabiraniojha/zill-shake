@@ -49,7 +49,7 @@ function Wallet() {
 		try {
 			axios
 				.post(
-					"http://localhost:3000/api/user/withdraw",
+					`${import.meta.env.VITE_BASE_URL}/api/user/withdraw`,
 					{
 						amount,
 						wallet_address: walletAddress,
@@ -80,7 +80,7 @@ function Wallet() {
 	const getTransactions = async () => {
 		try {
 			const query = new URLSearchParams({ pageNumber: page });
-			const res = await axios.get(`http://localhost:3000/api/user/transactions?${query.toString()}`, { withCredentials: true });
+			const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user/transactions?${query.toString()}`, { withCredentials: true });
 			setTransactions(res.data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 			setTotalPages(res.data?.totalPages ?? 0);
 		} catch (error) {
@@ -94,7 +94,7 @@ function Wallet() {
 		getTransactions();
 
 		axios
-			.get("http://localhost:3000/api/user/life-time-wallet-credited", { withCredentials: true })
+			.get(`${import.meta.env.VITE_BASE_URL}/api/user/life-time-wallet-credited`, { withCredentials: true })
 			.then(({ data }) => {
 				setLifeTimeWalletCredited(data.totalCredited);
 			})
@@ -147,7 +147,7 @@ function Wallet() {
 					</div>
 
 					<button type="submit" class="btn btn_Submit">
-						Submit
+						Reedem
 					</button>
 				</form>
 

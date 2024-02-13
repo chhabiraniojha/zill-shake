@@ -19,16 +19,16 @@ function ClaimReward() {
 	const claimReward = (taskId) => {
 		setLoading(true)
 		axios
-			.get(`http://localhost:3000/api/tasks/claim/${plan}/${taskId}`, {
+			.get(`${import.meta.env.VITE_BASE_URL}/api/tasks/claim/${plan}/${taskId}`, {
 				withCredentials: true,
 			})
 			.then((res) => {
-				setTimeout(() => {
+				
 					setLoading(false);
 					setType("success");
 					setMessage(res.data.message);
 					setOpen(true);
-				}, 4000)
+				
 			})
 			.catch((err) => {
 				console.log(err);
@@ -47,7 +47,7 @@ function ClaimReward() {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:3000/api/tasks/${plan}`, {
+			.get(`${import.meta.env.VITE_BASE_URL}/api/tasks/${plan}`, {
 				withCredentials: true,
 			})
 			.then((res) => {
@@ -61,7 +61,7 @@ function ClaimReward() {
 			});
 
 		axios
-			.get(`http://localhost:3000/api/tasks/claimed-rewards/${plan}`, {
+			.get(`${import.meta.env.VITE_BASE_URL}/api/tasks/claimed-rewards/${plan}`, {
 				withCredentials: true,
 			})
 			.then((res) => {
@@ -104,7 +104,7 @@ function ClaimReward() {
 									<i class="fa fa-quote-left"></i>
 								</div>
 								<div className="content_center">
-									<h5>{item.name}</h5>
+									<h5>Interest from {item.name}</h5>
 									<p>You're done 0 out of {(item.reward).toFixed(5)}</p>
 								</div>
 								<div
@@ -127,7 +127,7 @@ function ClaimReward() {
 								</div>
 								<div className="content_center">
 									<h5>{item.name}</h5>
-									<p>coines successfully acquired</p>
+									<p>Interest successfully acquired</p>
 								</div>
 								<div className="geat_claim_reward_right">
 									<p>Claimed</p>

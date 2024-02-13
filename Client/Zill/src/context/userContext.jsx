@@ -19,7 +19,7 @@ const UserProvider = ({ children }) => {
     useEffect(() => {
 
         // user detail's
-        axios.get('http://localhost:3000/api/user/me', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_BASE_URL}/api/user/me`, { withCredentials: true })
         .then(({ data }) => {
             setUser(data.result)
         })
@@ -30,7 +30,7 @@ const UserProvider = ({ children }) => {
         })
 
         // wallet information
-        axios.get('http://localhost:3000/api/user/wallet', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_BASE_URL}/api/user/wallet`, { withCredentials: true })
         .then(({ data }) => {
             setWallet(data.result)
         })
@@ -41,7 +41,7 @@ const UserProvider = ({ children }) => {
         })
 
         // plans
-        axios.get('http://localhost:3000/api/user/plans', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_BASE_URL}/api/user/plans`, { withCredentials: true })
         .then(({ data }) => {
             setPlans(data.result)
         }).catch((err) => {
@@ -52,7 +52,7 @@ const UserProvider = ({ children }) => {
 
         // orders
         axios
-        .get("http://localhost:3000/api/user/orders", { withCredentials: true })
+        .get(`${import.meta.env.VITE_BASE_URL}/api/user/orders`, { withCredentials: true })
         .then(({ data }) => {
             setOrders(data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
         })
@@ -63,7 +63,7 @@ const UserProvider = ({ children }) => {
         });
 
         axios
-        .get("http://localhost:3000/api/user/transactions", { withCredentials: true })
+        .get(`${import.meta.env.VITE_BASE_URL}/api/user/transactions`, { withCredentials: true })
         .then(({ data }) => {
             setTransactions(data.result);
         })

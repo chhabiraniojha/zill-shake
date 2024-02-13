@@ -15,7 +15,7 @@ function Promotion() {
 	useEffect(() => {
 
 		axios
-			.get("http://localhost:3000/api/user/todays-commission", { withCredentials: true })
+			.get(`${import.meta.env.VITE_BASE_URL}/api/user/todays-commission`, { withCredentials: true })
 			.then(({ data }) => {
 				setTodaysCommission(data.result.reduce((acc, item) => acc + item?.totalCommission, 0));
 			})
@@ -24,7 +24,7 @@ function Promotion() {
 			});
 
 		axios
-			.get("http://localhost:3000/api/user/total-commission", { withCredentials: true })
+			.get(`${import.meta.env.VITE_BASE_URL}/api/user/total-commission`, { withCredentials: true })
 			.then(({ data }) => {
 				setTotalCommission(data?.totalCommission ?? 0);
 			})
@@ -33,7 +33,7 @@ function Promotion() {
 			});
 
 		axios
-			.get("http://localhost:3000/api/user/life-time-commission", { withCredentials: true })
+			.get(`${import.meta.env.VITE_BASE_URL}/api/user/life-time-commission`, { withCredentials: true })
 			.then(({ data }) => {
 				setLifetimeCommission(data?.totalCommission ?? 0);
 			})

@@ -11,7 +11,7 @@ function Subordinatedata() {
     const [commissionData, setCommissionData] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/user/todays-commission', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_BASE_URL}/api/user/todays-commission`, { withCredentials: true })
         .then(({ data }) => {
             setCommissionData(data?.result ?? [])
         })
@@ -19,7 +19,7 @@ function Subordinatedata() {
             console.log(err)
         })
 
-        axios.get('http://localhost:3000/api/user/subordinates', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_BASE_URL}/api/user/subordinates`, { withCredentials: true })
         .then(({ data }) => {
             setSubordinates(data?.result ?? [])
         }).catch((err) => {

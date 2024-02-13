@@ -24,7 +24,7 @@ function profileAccount() {
 
 	const { setType, setMessage, setOpen } = useContext(CustomAlertContext)
 	const logout = () => {
-		axios.get('http://localhost:3000/api/auth/logout', { withCredentials: true })
+		axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/logout`, { withCredentials: true })
 		.then((res) => {
 			setType('success')
 			setMessage('logout successful')

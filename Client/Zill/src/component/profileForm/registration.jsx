@@ -160,7 +160,7 @@ function Registr() {
 
 			try {
 				setIsLoading(true); // Set isLoading to true
-				const res = await axios.post("http://localhost:3000/api/auth/register", form, { withCredentials: true });
+				const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/register`, form, { withCredentials: true });
 				setType("success");
 				setMessage("Successfully registered");
 				setOpen(true);

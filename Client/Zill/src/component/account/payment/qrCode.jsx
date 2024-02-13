@@ -18,7 +18,7 @@ function Wallet() {
 		try {
 			setIsLoading(true);
 			const res = await axios.post(
-				"http://localhost:3000/api/user/plans",
+				`${import.meta.env.VITE_BASE_URL}/api/user/plans`,
 				{ plan_id: searchParam.get("plan"), transaction_hash: transactionHash },
 				{ withCredentials: true }
 			);
@@ -36,7 +36,7 @@ function Wallet() {
 
 	const getPlanDetails = async () => {
 		try {
-			const res = await axios.get(`http://localhost:3000/api/plan/${searchParam.get("plan")}`, {
+			const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/plan/${searchParam.get("plan")}`, {
 				withCredentials: true,
 			});
 			setPlan(res.data.result);

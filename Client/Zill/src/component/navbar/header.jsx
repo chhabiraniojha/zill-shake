@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../../assets/Zill Money Logo.png"
 import "./style.css";
 
 function Header() {
@@ -7,8 +8,8 @@ function Header() {
 		<>
 			<nav className="navbar navbar-expand-lg navbar-light bg-light header_bar fixed-top">
 				<Link class="navbar-brand" href="#">
-					<img src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="" />
-                    <span className="mx-2">Zill money</span>
+					<img src={logo} width="30" height="30" alt="" />
+                    <span className="mx-2" style={{color: "#e7a628", fontWeight:"1200", fontFamily:"serif",fontSize:"20px"}}>Zill Money</span>
 				</Link>{" "}
 				<div className="navbar_right_but">
 					<Link to="/">
