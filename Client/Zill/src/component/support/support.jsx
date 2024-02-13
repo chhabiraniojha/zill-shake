@@ -236,9 +236,6 @@ function Support() {
 												</h5>
 												<p  className="px-2">{new Date(ticket.created_at).toLocaleDateString()}</p>
 											</div>
-											<div className="amount_get">
-												<p>${ticket.amount}</p>
-											</div>
 											<div className="geat_claim_reward_right">
 												<p className="px-2">Pending</p>
 											</div>
