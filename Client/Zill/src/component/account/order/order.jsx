@@ -76,7 +76,7 @@ function order() {
 											</div>
 										</div>
 									);
-								} else if (order.status === "confirmed") {
+								} else if (order.status === "confirm") {
 									return (
 										<div className="claimReward Claimeded">
 											<div className="icon_right">
@@ -96,7 +96,7 @@ function order() {
 											</div>
 										</div>
 									);
-								} else if (order.status === "terminating") {
+								} else if (order.status === "pending" && order.tag==="terminate") {
 									return (
 										<div className="claimReward panding">
 											<div className="icon_right">
