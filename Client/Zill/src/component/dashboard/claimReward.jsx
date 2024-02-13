@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
 import "./style.css";
 import { useEffect } from "react";
 import axios, { AxiosError } from "axios";
@@ -13,6 +13,7 @@ function ClaimReward() {
 	const [tasks, setTasks] = useState([]);
 	const [claimedTasks, setClaimedTasks] = useState([]);
 	const [loading, setLoading] = useState(false)
+	const waitTimer = useRef(null)
 
 	const { open, message, type, setType, setOpen, setMessage } = useContext(CustomAlertContext)
 
@@ -23,11 +24,12 @@ function ClaimReward() {
 				withCredentials: true,
 			})
 			.then((res) => {
-				setTimeout(() => {
+				waitTimer.current = setTimeout(() => {
 					setLoading(false);
 					setType("success");
 					setMessage(res.data.message);
 					setOpen(true);
+					waitTimer.current = null
 				}, 4000)
 			})
 			.catch((err) => {
@@ -39,11 +41,6 @@ function ClaimReward() {
 				}
 			})
 	};
-
-	useEffect(() => {
-		setType("loading");
-		setOpen(loading);
-	}, [loading])
 
 	useEffect(() => {
 		axios
@@ -73,7 +70,7 @@ function ClaimReward() {
 					console.log(err.response.data.message);
 				}
 			});
-	}, [open]);
+	}, []);
 
 	const isTasksClaimed = useCallback(
 		(id) => !!claimedTasks.find((task) => task?.task == id),
@@ -110,12 +107,11 @@ function ClaimReward() {
 								<div
 									className="geat_claim_reward_right"
 									onClick={() => claimReward(item.id)}
+									style={{ cursor: 'pointer' }}
 								>
-									<Link to="">
 										<p>
 											 {(item.reward).toFixed(5)}
 										</p>
-									</Link>
 								</div>
 							</div>
 						);

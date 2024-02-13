@@ -60,6 +60,8 @@ const claimRewardFromTasks = async (req, res) => {
 					});
 				}
 
+				console.log('tasks claim :- ', result)
+
 				if (result.length > 0) {
 					return res.status(400).json({
 						success: false,

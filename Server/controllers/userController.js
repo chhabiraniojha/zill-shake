@@ -281,7 +281,7 @@ const myTransactions = (req, res) => {
 			const totalTransactions = countResult[0].total;
 			const totalPages = Math.ceil(totalTransactions / limit);
 
-			connection.query(`SELECT * FROM transactions WHERE user_id = ? LIMIT ?, ?`, [user.id, startIndex, limit], (err, result) => {
+			connection.query(`SELECT * FROM transactions WHERE user_id = ? ORDER BY created_at DESC LIMIT ?, ?`, [user.id, startIndex, limit], (err, result) => {
 				if (err) {
 					return res.status(400).json({
 						success: false,
