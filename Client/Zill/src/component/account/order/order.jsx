@@ -6,31 +6,28 @@ import { UserContext } from "../../../context/userContext";
 import { Button } from "react-bootstrap";
 
 function order() {
-
 	const [orders, setOrders] = useState([]);
 	const [page, setPage] = useState(1);
-	const [totalPages , setTotalPages] = useState(0);
+	const [totalPages, setTotalPages] = useState(0);
 	const [loading, setLoading] = useState(false);
-
 
 	useEffect(() => {
 		// orders
 		setLoading(true);
 		const query = new URLSearchParams({ page });
 		axios
-        .get(`http://localhost:3000/api/user/orders?${query.toString()}`, { withCredentials: true })
-        .then(({ data }) => {
-            setOrders(data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
-			setLoading(false);
-			setTotalPages(data.totalPages);
-        })
-        .catch((err) => {
-            if (err instanceof AxiosError) {
-                console.log(err);
-            }
-        });
-	}
-	, [page]);
+			.get(`http://localhost:3000/api/user/orders?${query.toString()}`, { withCredentials: true })
+			.then(({ data }) => {
+				setOrders(data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+				setLoading(false);
+				setTotalPages(data.totalPages);
+			})
+			.catch((err) => {
+				if (err instanceof AxiosError) {
+					console.log(err);
+				}
+			});
+	}, [page]);
 
 	return (
 		<>
@@ -56,34 +53,30 @@ function order() {
 				<div className="tab-content" id="pills-tabContent">
 					<div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 						<div className="claimRewardManeDv">
-							{
-								orders.length === 0 && <h5>No Orders</h5>
-							}
-							{
-								loading && <h5>Loading...</h5>
-							}
+							{orders.length === 0 && <h5>No Orders</h5>}
+							{loading && <h5>Loading...</h5>}
 							{orders?.map((order) => {
 								if (order.status === "pending") {
 									return (
 										<div className="claimReward panding">
 											<div className="icon_right">
-											<i class="fa fa-arrow-circle-o-down"></i>
+												<i class="fa fa-arrow-circle-o-down"></i>
 											</div>
 											<div className="content_center">
 												<h5 title={order.id}>
-													<b>{(order.id).split('-').splice(0, 2).join('-')}...</b>
+													<b>{order.id.split("-").splice(0, 2).join("-")}...</b>
 												</h5>
-												<p  className="px-2">{new Date(order.created_at).toLocaleDateString()}</p>
+												<p className="px-2">{new Date(order.created_at).toLocaleDateString()}</p>
 											</div>
 											<div className="amount_get">
 												<p>${order.amount}</p>
 											</div>
 											<div className="geat_claim_reward_right">
-												<p className="px-2">Confirmed</p>
+												<p className="px-2">Pending</p>
 											</div>
 										</div>
 									);
-								} else {
+								} else if (order.status === "confirmed") {
 									return (
 										<div className="claimReward Claimeded">
 											<div className="icon_right">
@@ -91,9 +84,9 @@ function order() {
 											</div>
 											<div className="content_center">
 												<h5 title={order.id}>
-													<b>{(order.id).split('-').splice(0, 2).join('-')}...</b>
+													<b>{order.id.split("-").splice(0, 2).join("-")}...</b>
 												</h5>
-												<p  className="px-2">{new Date(order.created_at).toLocaleDateString()}</p>
+												<p className="px-2">{new Date(order.created_at).toLocaleDateString()}</p>
 											</div>
 											<div className="amount_get">
 												<p>${order.amount}</p>
@@ -103,14 +96,58 @@ function order() {
 											</div>
 										</div>
 									);
+								} else if (order.status === "terminating") {
+									return (
+										<div className="claimReward panding">
+											<div className="icon_right">
+												<i class="fa fa-arrow-circle-o-down"></i>
+											</div>
+											<div className="content_center">
+												<h5 title={order.id}>
+													<b>{order.id.split("-").splice(0, 2).join("-")}...</b>
+												</h5>
+												<p className="px-2">{new Date(order.created_at).toLocaleDateString()}</p>
+											</div>
+											<div className="amount_get">
+												<p>${order.amount}</p>
+											</div>
+											<div className="geat_claim_reward_right">
+												<p className="px-2">Terminating</p>
+											</div>
+										</div>
+									);
+								} else if (order.status === "terminated") {
+									return (
+										<div className="claimReward Claimeded">
+											<div className="icon_right">
+												<i class="fa fa-arrow-circle-o-down"></i>
+											</div>
+											<div className="content_center">
+												<h5 title={order.id}>
+													<b>{order.id.split("-").splice(0, 2).join("-")}...</b>
+												</h5>
+												<p className="px-2">{new Date(order.created_at).toLocaleDateString()}</p>
+											</div>
+											<div className="amount_get">
+												<p>${order.amount}</p>
+											</div>
+											<div className="geat_claim_reward_right">
+												<p className="px-2">Terminated</p>
+											</div>
+										</div>
+									);
 								}
 							})}
 						</div>
 						<div style={{ display: "flex", gap: 2, justifyItems: "space-between" }}>
-					<Button disabled={page <= 1} onClick={() => setPage((prev) => prev - 1)}>&larr; Previous</Button>
-					<Button disabled={totalPages <= page} onClick={() => setPage((prev) => prev + 1)}>Next &rarr;</Button>
-				</div>
-									</div>
+							<Button disabled={page <= 1} onClick={() => setPage((prev) => prev - 1)}>
+								&larr; Previous
+							</Button>
+							<Button disabled={totalPages <= page} onClick={() => setPage((prev) => prev + 1)}>
+								Next &rarr;
+							</Button>
+						</div>
+					</div>
 					{/* <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <div className="claimRewardManeDv">
                             <div className="claimReward Claimeded">

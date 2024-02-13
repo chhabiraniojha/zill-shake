@@ -95,7 +95,7 @@ a.reg_but {
     align-items: center;
     padding: 12px;
     color: #fff;
-    width: 85px;
+    width: fit-content;
     border-radius: 15px;
 }
 .panding .geat_claim_reward_right p {
@@ -104,7 +104,7 @@ a.reg_but {
     align-items: center;
     padding: 12px;
     color: #fff;
-    width: 85px;
+    width: fit-content;
     border-radius: 15px;
 }
 .panding .geat_claim_reward_right p i.fa {
