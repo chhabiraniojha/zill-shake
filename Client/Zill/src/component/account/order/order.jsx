@@ -67,19 +67,19 @@ function order() {
 									return (
 										<div className="claimReward panding">
 											<div className="icon_right">
-												<i class="fa fa-arrow-circle-o-down"></i>
+											<i class="fa fa-arrow-circle-o-down"></i>
 											</div>
 											<div className="content_center">
 												<h5 title={order.id}>
-												<b>{('order.id').split('-')[0]}...</b>
+													<b>{(order.id).split('-').splice(0, 2).join('-')}...</b>
 												</h5>
-												<p>{new Date(order.created_at).toLocaleDateString()}</p>
+												<p  className="px-2">{new Date(order.created_at).toLocaleDateString()}</p>
 											</div>
 											<div className="amount_get">
 												<p>${order.amount}</p>
 											</div>
 											<div className="geat_claim_reward_right">
-												<p>Pending</p>
+												<p className="px-2">Confirmed</p>
 											</div>
 										</div>
 									);
@@ -93,7 +93,7 @@ function order() {
 												<h5 title={order.id}>
 													<b>{(order.id).split('-').splice(0, 2).join('-')}...</b>
 												</h5>
-												<p>{new Date(order.created_at).toLocaleDateString()}</p>
+												<p  className="px-2">{new Date(order.created_at).toLocaleDateString()}</p>
 											</div>
 											<div className="amount_get">
 												<p>${order.amount}</p>

@@ -59,7 +59,35 @@ const addSupportIssue = async (req, res) => {
 	}
 }
 
+const getAllSupportTickets = async (req, res) => {
+	try {
+		const { user } = req
+		connection.query("SELECT * FROM support WHERE user_id = ?", [user.id], (err, result) => {
+			if (err) {
+				console.log(err);
+				return res.status(400).json({
+					success: false,
+					message: "Failed to fetch support tickets",
+				});
+			}
+
+			res.json({
+				success: true,
+				message: "Successfully fetched support tickets",
+				result,
+			});
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			success: false,
+			message: "Internal Server Error",
+		});
+	}
+}
+
 module.exports = {
     getIssueList,
-	addSupportIssue
+	addSupportIssue,
+	getAllSupportTickets
 };

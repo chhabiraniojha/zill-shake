@@ -19,6 +19,7 @@ function Support() {
 	const [whichOtherIdToShow, setWhichOtherIdToShow] = useState("");
 	const [otherId, setOtherId] = useState(undefined);
 	const [description, setDescription] = useState("");
+	const [prevTickets, setPrevTickets] = useState([]);
 
 	useEffect(() => {
 		axios
@@ -60,7 +61,7 @@ function Support() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const issueSlug = issuesList.filter((issue) => issue.id === Number(selectedIssue))[0]?.slug
+		const issueSlug = issuesList.filter((issue) => issue.id === Number(selectedIssue))[0]?.slug;
 
 		if (!selectedIssue) {
 			setOpen(true);
@@ -69,7 +70,7 @@ function Support() {
 			return;
 		}
 
-		if(!otherId && issueSlug !== "other") {
+		if (!otherId && issueSlug !== "other") {
 			setOpen(true);
 			setType("error");
 			setMessage(`Please select your ${whichOtherIdToShow} id`);
@@ -83,39 +84,51 @@ function Support() {
 			return;
 		}
 
-		axios.post(
-			"http://localhost:3000/api/support",
-			{
-				issue: issuesList.filter((issue) => issue.id === Number(selectedIssue))[0]?.name ?? null,
-				issue_id: Number(selectedIssue),
-				note: description,
-				other_id: !otherId ? null : otherId,
-			},
-			{ withCredentials: true }
-		)
-		.then((res) => {
-			setType("success");
-			setMessage("Your issue has been submitted successfully");
-			setOpen(true);
-			setSelectedIssue(undefined);
-			setOtherId(undefined);
-			setDescription("");
-		})
-		.catch((err) => {
-			if(err instanceof AxiosError) {
-			setType("error");
-			setMessage(err?.response?.data?.message);
-			setOpen(true);
-			}
-		});
+		axios
+			.post(
+				"http://localhost:3000/api/support",
+				{
+					issue: issuesList.filter((issue) => issue.id === Number(selectedIssue))[0]?.name ?? null,
+					issue_id: Number(selectedIssue),
+					note: description,
+					other_id: !otherId ? null : otherId,
+				},
+				{ withCredentials: true }
+			)
+			.then((res) => {
+				setType("success");
+				setMessage("Your issue has been submitted successfully");
+				setOpen(true);
+				setSelectedIssue(undefined);
+				setOtherId(undefined);
+				setDescription("");
+			})
+			.catch((err) => {
+				if (err instanceof AxiosError) {
+					setType("error");
+					setMessage(err?.response?.data?.message);
+					setOpen(true);
+				}
+			});
 	};
+
+	useEffect(() => {
+		axios
+			.get("http://localhost:3000/api/support/prev-tickets", { withCredentials: true })
+			.then(({ data }) => {
+				setPrevTickets(data.result);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
 
 	return (
 		<>
 			<div className="Support">
-			<Link to={'/promotion'} type="button" className="btn btn-primary submit_support m-3">
-							&larr; Back
-						</Link>
+				<Link to={"/promotion"} type="button" className="btn btn-primary submit_support m-3">
+					&larr; Back
+				</Link>
 				<form className="mt-3" onSubmit={handleSubmit}>
 					<div className="mb-3">
 						<label className="form-label">
@@ -194,7 +207,7 @@ function Support() {
 						</select>
 					</div>
 
-						<label htmlFor="">Description</label>
+					<label htmlFor="">Description</label>
 					<div className="form-floating">
 						<textarea
 							className="form-control"
@@ -209,6 +222,48 @@ function Support() {
 					</div>
 				</form>
 			</div>
+			<div>
+			{prevTickets?.map((ticket) => {
+								if (ticket.resolved === "pending") {
+									return (
+										<div className="claimReward panding">
+											<div className="icon_right">
+											<i class="fa fa-arrow-circle-o-down"></i>
+											</div>
+											<div className="content_center">
+												<h5 title={ticket.id}>
+													<b>{ticket.id}</b>
+												</h5>
+												<p  className="px-2">{new Date(ticket.created_at).toLocaleDateString()}</p>
+											</div>
+											<div className="amount_get">
+												<p>${ticket.amount}</p>
+											</div>
+											<div className="geat_claim_reward_right">
+												<p className="px-2">Pending</p>
+											</div>
+										</div>
+									);
+								} else {
+									return (
+										<div className="claimReward Claimeded">
+											<div className="icon_right">
+												<i class="fa fa-check"></i>
+											</div>
+											<div className="content_center">
+												<h5 title={ticket.id}>
+													<b>{ticket.id}</b>
+												</h5>
+												<p  className="px-2">{new Date(ticket.created_at).toLocaleDateString()}</p>
+											</div>
+											<div className="geat_claim_reward_right">
+												<p>Confirmed</p>
+											</div>
+										</div>
+									);
+								}
+							})}
+				</div>
 		</>
 	);
 }
