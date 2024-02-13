@@ -89,6 +89,7 @@ const tables = [
       resolved enum('solved','pending') NOT NULL DEFAULT 'pending',
       PRIMARY KEY (id),
       KEY issue_support (issue_id),
+      created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
       CONSTRAINT issue_support FOREIGN KEY (issue_id) REFERENCES issues (id) ON DELETE RESTRICT ON UPDATE RESTRICT
     )`,
 	`CREATE TABLE IF NOT EXISTS tasks (

@@ -70,7 +70,7 @@ function ClaimReward() {
 					console.log(err.response.data.message);
 				}
 			});
-	}, []);
+	}, [open]);
 
 	const isTasksClaimed = useCallback(
 		(id) => !!claimedTasks.find((task) => task?.task == id),

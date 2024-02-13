@@ -13,7 +13,6 @@ function Promotion() {
 	const [lifetimeCommission, setLifetimeCommission] = useState(0);
 
 	useEffect(() => {
-
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/user/todays-commission`, { withCredentials: true })
 			.then(({ data }) => {
@@ -105,15 +104,19 @@ function Promotion() {
 								</Link>
 							</li>
 							<li>
-								<p>Commission detail </p>
-								<p>
-									<i class="fa fa-angle-double-right"></i>
-								</p>
+								<Link to="/commission-detail">
+									<p>Commission detail </p>
+									<p>
+										<i class="fa fa-angle-double-right"></i>
+									</p>
+								</Link>
 							</li>
 							<li>
 								<Link to="/support">
 									<p>Agent line customer service </p>
-								<p><i class="fa fa-angle-double-right"></i></p>
+									<p>
+										<i class="fa fa-angle-double-right"></i>
+									</p>
 								</Link>
 							</li>
 						</ul>
