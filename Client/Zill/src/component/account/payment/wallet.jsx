@@ -147,7 +147,7 @@ function Wallet() {
 					</div>
 
 					<button type="submit" class="btn btn_Submit">
-						Reedem
+						Redeem
 					</button>
 				</form>
 

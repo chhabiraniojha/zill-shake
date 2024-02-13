@@ -123,7 +123,7 @@ function homePlansShow() {
 						<h4 className="pade_h4">Gold</h4>
 						<div className="planButton">
 							<button className="earnIntErst">
-								<Link className="pade_plane" to="/claim-reward">
+								<Link className="pade_plane" to="/claim-reward/gold">
 									Earn Interest
 								</Link>
 							</button>

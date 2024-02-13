@@ -117,7 +117,7 @@ const addPlan = (req, res) => {
 
 						res.json({
 							success: true,
-							message: "Successfully added plan",
+							message: "Plan Buying Request SentIt will Be activated within 24 Hours",
 						});
 					}
 				);
@@ -269,9 +269,11 @@ const myTransactions = (req, res) => {
 
 		const startIndex = (Number(pageNumber) - 1) * limit;
 		const endIndex = Number(pageNumber) * limit;
+		
 
 		connection.query(`SELECT COUNT(*) as total FROM transactions WHERE user_id = ?`, [user.id], (err, countResult) => {
 			if (err) {
+				console.log(err)
 				return res.status(400).json({
 					success: false,
 					message: "Failed to fetch transactions",

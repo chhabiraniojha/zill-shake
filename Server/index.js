@@ -21,7 +21,7 @@ const port = 3000;
 
 const app = express();
 
-app.use(bodyParser());
+app.use(bodyParser.json({extended:false}));
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(
 	cors({
@@ -111,6 +111,13 @@ const tables = [
       tag enum('commission','reward','withdraw','') NOT NULL,
       PRIMARY KEY (id)
     )`,
+    `CREATE TABLE IF NOT EXISTS wallet (
+      id varchar(255) NOT NULL,
+      user_id varchar(255) NOT NULL,
+      amount decimal(10,5) NOT NULL DEFAULT '0.00000',
+      PRIMARY KEY (id),
+      UNIQUE KEY wallet_user_id (user_id)
+    )`,
 	`CREATE TABLE IF NOT EXISTS users (
       id varchar(255) NOT NULL,
       password varchar(255) NOT NULL,
@@ -136,14 +143,8 @@ const tables = [
       plan_id varchar(255) NOT NULL,
       user_id varchar(255) NOT NULL,
       PRIMARY KEY (id)
-    )`,
-	`CREATE TABLE IF NOT EXISTS wallet (
-      id varchar(255) NOT NULL,
-      user_id varchar(255) NOT NULL,
-      amount decimal(10,5) NOT NULL DEFAULT '0.00000',
-      PRIMARY KEY (id),
-      UNIQUE KEY wallet_user_id (user_id)
     )`
+	
 ];
 
 tables.forEach((table) => {
@@ -153,5 +154,6 @@ tables.forEach((table) => {
 });
 
 app.listen(port, () => {
+  
 	console.log(`server is running on http://localhost:${port}`);
 });

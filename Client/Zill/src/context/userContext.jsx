@@ -65,6 +65,7 @@ const UserProvider = ({ children }) => {
         axios
         .get(`${import.meta.env.VITE_BASE_URL}/api/user/transactions`, { withCredentials: true })
         .then(({ data }) => {
+            console.log(data)
             setTransactions(data.result);
         })
         .catch((err) => {

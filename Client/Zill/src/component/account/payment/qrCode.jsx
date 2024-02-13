@@ -56,7 +56,7 @@ function Wallet() {
 			<div className="main">
 				<div className="back"></div>
 				<div id="tip11" className="center tip">
-					<span>This address only supports recharge USDT-TRC20,Other currencies are not supported</span>
+					<span>This address only supports recharge USDT-BEP20,Other currencies are not supported</span>
 				</div>
 				<div id="tip21" className="center tip">
 					<span>The credited amount is calculated according to the actual recharge amount</span>
@@ -96,9 +96,9 @@ function Wallet() {
 						</form>
 					</div>
 				</div>
-				<div className="label">USDT-TRC20：</div>
+				<div className="label">USDT-BEP20：</div>
 				<div className="label-content">
-					<span>Tron（USDT-TRC20）</span>
+					<span>Binance Smart Chain（USDT-BEP20）</span>
 				</div>
 				<div className="label" style={{ marginTop: "25px;" }}>
 					USDT Address：

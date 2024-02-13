@@ -86,7 +86,7 @@ function Support() {
 
 		axios
 			.post(
-				"http://localhost:3000/api/support",
+				`${import.meta.env.VITE_BASE_URL}/api/support`,
 				{
 					issue: issuesList.filter((issue) => issue.id === Number(selectedIssue))[0]?.name ?? null,
 					issue_id: Number(selectedIssue),
@@ -114,7 +114,7 @@ function Support() {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:3000/api/support/prev-tickets", { withCredentials: true })
+			.get(`${import.meta.env.VITE_BASE_URL}/api/support/prev-tickets`, { withCredentials: true })
 			.then(({ data }) => {
 				setPrevTickets(data.result);
 			})
