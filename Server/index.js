@@ -21,15 +21,16 @@ const port = 80;
 
 const app = express();
 // app.use(cors())
-app.use(bodyParser.json({extended:false}));
-app.use(cookieParser(process.env.JWT_SECRET));
-
 app.use(
 	cors({
 		origin: "http://13.234.32.239",
 		credentials: true,
 	})
 );
+app.use(bodyParser.json({extended:false}));
+app.use(cookieParser(process.env.JWT_SECRET));
+
+
 
 // routes
 app.use("/api/auth", authRouter);
