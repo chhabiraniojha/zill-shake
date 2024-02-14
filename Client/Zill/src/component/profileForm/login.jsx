@@ -72,6 +72,7 @@ function Login() {
 
 			setLoading(true);
 			const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, form, { withCredentials: true });
+			console.log(res)
 			setType("success");
 			setMessage(res.data.message);
 			setOpen(true);

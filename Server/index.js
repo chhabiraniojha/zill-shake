@@ -17,18 +17,28 @@ const { connection } = require("./sql/connection");
 // db
 require("./sql/connection");
 
-const port = 80;
+const port = 3000;
 
 const app = express();
 // app.use(cors())
+// app.use(
+// 	cors({
+// 		origin: "http://localhost:5173/",
+//     // origin: "http://13.234.32.239",
+// 		credentials: true,
+// 	})
+// );
+app.use(bodyParser.json({extended:false}));
+app.use(cookieParser(process.env.JWT_SECRET));
+// app.use(cors())
 app.use(
 	cors({
-		origin: "http://13.234.32.239",
+		origin: "*",
 		credentials: true,
 	})
 );
-app.use(bodyParser.json({extended:false}));
-app.use(cookieParser(process.env.JWT_SECRET));
+// origin: "http://localhost:5173",
+
 
 
 
