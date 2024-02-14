@@ -101,7 +101,7 @@ function ClaimReward() {
 								</div>
 								<div className="content_center">
 									<h5>Interest from {item.name}</h5>
-									<p>You're done 0 out of {(item.reward).toFixed(5)}</p>
+									<p>You're done 0 out of {(item.reward)}</p>
 								</div>
 								<div
 									className="geat_claim_reward_right"
@@ -109,7 +109,7 @@ function ClaimReward() {
 									style={{ cursor: 'pointer' }}
 								>
 										<p>
-											 {(item.reward).toFixed(5)}
+											 {(item.reward)}
 										</p>
 								</div>
 							</div>
@@ -134,7 +134,7 @@ function ClaimReward() {
 			</div>
 			<Modal show={loading}>
 			<Modal.Header>
-				<Modal.Title>Claim Reward</Modal.Title>
+				<Modal.Title>Claiming Interest ......</Modal.Title>
 			</Modal.Header>
 			<Modal.Body className="d-flex justify-content-center align-items-center">
 				<Spinner/>

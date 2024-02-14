@@ -104,7 +104,7 @@ function Promotion() {
 								</Link>
 							</li>
 							<li>
-								<Link to="/commission-detail">
+								<Link to="/commission-details">
 									<p>Commission detail </p>
 									<p>
 										<i class="fa fa-angle-double-right"></i>

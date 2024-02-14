@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import QrCode from "../../../assets/img/qrcode.jpeg";
 import "./style.css";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import { Modal, Button, Spinner } from "react-bootstrap";
 
@@ -114,7 +114,7 @@ function Wallet() {
 
 			<Modal show={showModal} onHide={() => setShowModal(false)} centered>
 				<Modal.Header closeButton>
-					<Modal.Title>Modal Title</Modal.Title>
+					<Modal.Title>Success</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					{isLoading ? (
@@ -127,9 +127,11 @@ function Wallet() {
 					)}
 				</Modal.Body>
 				<Modal.Footer>
+				   <Link to={"/"}>
 					<Button variant="primary" onClick={() => setShowModal(false)}>
-						Confirm
+						Ok
 					</Button>
+					</Link>
 				</Modal.Footer>
 			</Modal>
 		</>

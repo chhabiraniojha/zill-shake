@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from "react-router-dom";
 import Banner1 from "../../assets/img/slider/Banner1.png"
-import Banner2 from "../../assets/img/slider/Banner1.png"
+import Banner2 from "../../assets/img/slider/Banner2.png"
 import './style.css'
 import { Carousel } from 'react-bootstrap';
 
