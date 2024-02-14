@@ -20,20 +20,13 @@ require("./sql/connection");
 const port = 80;
 
 const app = express();
-// app.use(cors())
-// app.use(
-// 	cors({
-// 		origin: "http://localhost:5173/",
-//     // origin: "http://13.234.32.239",
-// 		credentials: true,
-// 	})
-// );
+
 app.use(bodyParser.json({extended:false}));
 app.use(cookieParser(process.env.JWT_SECRET));
-// app.use(cors())
+
 app.use(
 	cors({
-		origin: "*",
+		origin: "http://13.234.32.239/",
 		credentials: true,
 	})
 );
