@@ -26,7 +26,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use(
 	cors({
-		origin: "http://zillmoney.in",
+		origin: "https://zillmoney.in",
 		credentials: true,
 	})
 );
