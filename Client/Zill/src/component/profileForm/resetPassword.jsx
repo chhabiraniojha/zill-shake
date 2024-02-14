@@ -240,7 +240,7 @@ function ResetPassword() {
 					</label>
 					<span className="verifcode">
 						<input
-							type="phone"
+							type="text"
 							name="phone"
 							placeholder="Please enter the confirmation code"
 							value={otp}

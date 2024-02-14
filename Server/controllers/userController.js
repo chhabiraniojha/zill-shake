@@ -446,8 +446,7 @@ const withDrawBalance = (req, res) => {
 				});
 			}
 
-			const { balance } = result?.[0];
-			if(balance < amount) {
+			if(result?.[0].amount < amount) {
 				return res.status(400).json({
 					success: false,
 					message: "Insufficient balance",

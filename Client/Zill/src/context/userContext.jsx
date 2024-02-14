@@ -15,9 +15,8 @@ const UserProvider = ({ children }) => {
     const [transactions, setTransactions] = useState([])
     const [orders, setOrders] = useState([])
 
-
-    useEffect(() => {
-
+    const impFuncs = () => {
+        
         // user detail's
         axios.get(`${import.meta.env.VITE_BASE_URL}/api/user/me`, { withCredentials: true })
         .then(({ data }) => {
@@ -73,10 +72,16 @@ const UserProvider = ({ children }) => {
                 console.log(err);
             }
         });
+    }
+
+    const refresh = () => impFuncs()
+
+    useEffect(() => {
+        impFuncs()
     }, [location]) // refresh on path change
 
     return (
-        <UserContext.Provider value={{ user, wallet, plans, transactions, orders }}>
+        <UserContext.Provider value={{ user, wallet, plans, transactions, orders, refresh }}>
             { children }
         </UserContext.Provider>
     )

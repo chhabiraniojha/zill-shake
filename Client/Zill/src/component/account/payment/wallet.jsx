@@ -22,7 +22,7 @@ function Wallet() {
 	const [totalPages, setTotalPages] = useState(0);
 	const [loading, setLoading] = useState(false);
 
-	const { wallet } = useContext(UserContext);
+	const { wallet, refresh } = useContext(UserContext);
 	const { open, setOpen, type, setType, message, setMessage } = useContext(CustomAlertContext);
 
 	const addMoney = async (e) => {
@@ -60,6 +60,8 @@ function Wallet() {
 					setOpenConfirmationForm(false);
 					setOpenSuccessModal(true);
 					setAmount(0);
+					refresh()
+					setWalletAddress('')
 				})
 				.catch((err) => {
 					if (err instanceof AxiosError) {
@@ -289,10 +291,10 @@ function Wallet() {
 							</label>
 							<input type="number" className="form-control" id="amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
 						</div>
-						<button type="submit" className="btn btn-success mb-2">
+						<button type="submit" className="btn btn-success mb-2 mx-1">
 							Submit
 						</button>
-						<button type="button" className="btn btn-danger mb-2" onClick={() => setOpenConfirmationForm(false)}>
+						<button type="button" className="btn btn-danger mb-2 mx-1" onClick={() => setOpenConfirmationForm(false)}>
 							Cancel
 						</button>
 					</form>
