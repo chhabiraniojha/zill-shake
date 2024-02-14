@@ -138,7 +138,7 @@ const tables = [
       name varchar(255) NOT NULL,
       created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
       status varchar(255) NOT NULL DEFAULT 'inactive',
-      amount decimal(10,10) NOT NULL,
+      amount decimal(10,5) NOT NULL,
       id int NOT NULL AUTO_INCREMENT,
       plan_id varchar(255) NOT NULL,
       user_id varchar(255) NOT NULL,

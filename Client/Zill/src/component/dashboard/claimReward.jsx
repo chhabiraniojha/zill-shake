@@ -24,13 +24,12 @@ function ClaimReward() {
 				withCredentials: true,
 			})
 			.then((res) => {
-				waitTimer.current = setTimeout(() => {
+				// waitTimer.current = setTimeout(() => {
 					setLoading(false);
 					setType("success");
 					setMessage(res.data.message);
 					setOpen(true);
-					waitTimer.current = null
-				}, 4000)
+				
 			})
 			.catch((err) => {
 				console.log(err);
@@ -70,7 +69,7 @@ function ClaimReward() {
 					console.log(err.response.data.message);
 				}
 			});
-	}, []);
+	}, [loading]);
 
 	const isTasksClaimed = useCallback(
 		(id) => !!claimedTasks.find((task) => task?.task == id),
