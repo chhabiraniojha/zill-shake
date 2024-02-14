@@ -17,7 +17,7 @@ const { connection } = require("./sql/connection");
 // db
 require("./sql/connection");
 
-const port = 3000;
+const port = 80;
 
 const app = express();
 
