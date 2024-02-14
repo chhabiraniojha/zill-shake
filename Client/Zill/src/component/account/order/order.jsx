@@ -13,12 +13,12 @@ function order() {
 
 	useEffect(() => {
 		// orders
-		setLoading(true);
+		setLoading(true)
 		const query = new URLSearchParams({ page });
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/user/orders?${query.toString()}`, { withCredentials: true })
 			.then(({ data }) => {
-				setOrders(data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+				setOrders(data.result);
 				setLoading(false);
 				setTotalPages(data.totalPages);
 			})

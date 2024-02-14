@@ -59,7 +59,7 @@ function profileAccount() {
 
 			<div className="totel_amount">
 				<p>
-					Total balance <b>$ {Array.isArray(plans) && Number(plans.reduce((prev, currentValue) => prev + currentValue.amount, 0)).toFixed(2)}</b>
+					Total balance <b>$ {Array.isArray(plans) && (Number(plans.reduce((prev, currentValue) => prev + parseInt(currentValue.amount), 0)).toFixed(2))}</b>
 				</p>
 			</div>
 

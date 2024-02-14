@@ -189,8 +189,8 @@ const terminatePlan = (req, res) => {
 const getOrders = (req, res) => {
 	try {
 		const { user } = req;
-		const limit = req.query.limit || 10; // Default limit is 10, can be changed as per requirement
-		const page = req.query.page || 1; // Default page is 1, can be changed as per requirement
+		const limit = 10; // Default limit is 10, can be changed as per requirement
+		const page = Number(req.query.page) || 1; // Default page is 1, can be changed as per requirement
 
 		const startIndex = (page - 1) * limit;
 		const endIndex = page * limit;
@@ -210,7 +210,7 @@ const getOrders = (req, res) => {
 			const totalOrders = countResult[0].total;
 			const totalPages = Math.ceil(totalOrders / limit);
 
-			connection.query(selectQuery, [user.id, startIndex, limit], (err, result) => {
+			connection.query(selectQuery, [user.id, startIndex, endIndex], (err, result) => {
 				if (err) {
 					return res.status(400).json({
 						success: false,
