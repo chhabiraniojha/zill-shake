@@ -124,6 +124,7 @@ function ResetPassword() {
 				setType("error");
 				setMessage(error.response.data.message);
 				setOpen(true);
+				setFormSubmitLoading(false)
 			}
 		}
 	};
