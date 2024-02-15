@@ -38,6 +38,13 @@ function ResetPassword() {
 
 	const handleOtp = async () => {
 		setOtpLoading(true);
+
+		if(phone === '') {
+			setError({ field: "phone", message: "Phone number is required" });
+			setOtpLoading(false);
+			return;
+		}
+
 		axios
 			.post(`${import.meta.env.VITE_BASE_URL}/api/otp/send`, { phoneNumber: `+91${form.phone}` })
 			.then((res) => {
