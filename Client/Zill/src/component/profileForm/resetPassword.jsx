@@ -41,7 +41,7 @@ function ResetPassword() {
 		axios
 			.post(`${import.meta.env.VITE_BASE_URL}/api/otp/send`, { phoneNumber: `+91${form.phone}` })
 			.then((res) => {
-				let second = 60 * 3;
+				let second = 40;	
 				otpTimerId.current = setInterval(() => {
 					second--
 					let min = Math.floor(second / 60);
@@ -80,6 +80,11 @@ function ResetPassword() {
 			return;
 		}
 
+		if(form.password.length < 8) {
+			setError({ field: "password", message: "Password must be at least 8 characters" });
+			return;
+		}
+
 		if (form.password && !/(?=.*[a-zA-Z])(?=.*[0-9])/.test(form.password)) {
 			setError({ field: "password", message: "Password must contain at least one letter and one number" });
 			return;
@@ -89,6 +94,7 @@ function ResetPassword() {
 			setError({ field: "confirmPassword", message: "Confirm password is required" });
 			return;
 		}
+
 
 		if (form.password !== form.confirmPassword) {
 			setError({ field: "confirmPassword", message: "Password and confirm password must be the same" });
