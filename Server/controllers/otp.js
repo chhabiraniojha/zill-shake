@@ -7,12 +7,13 @@ const serviceSid = process.env.TWILIO_SERVICE_SID;
 const sendOTP = (req, res) => {
 	const { phoneNumber } = req.body;
 
-	connection.query("Select * from users where phone = ?", [phoneNumber], (err, result) => {
+	connection.query("Select * from users where phone = ?", [phoneNumber.replace("+91","")], (err, result) => {
 		if (err) {
-			console.log(err);
+			console.log("db",err);
 			return res.status(500).json({ message: "Failed to send OTP" });
 		}
-		if (result.length==0){
+		if (result.length===0){
+			// console.log(err);
 			return res.status(500).json({ message: "Failed to send OTP" });
 		}
 
@@ -23,6 +24,7 @@ const sendOTP = (req, res) => {
 				res.status(200).json({ message: "OTP sent successfully" });
 			})
 			.catch((error) => {
+				
 				res.status(500).json({ error: "Failed to send OTP" });
 			});
 	});

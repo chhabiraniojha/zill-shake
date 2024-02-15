@@ -138,6 +138,7 @@ const terminatePlan = (req, res) => {
 		const { plan } = req.params ?? {};
 		const { wallet_address } = req.body ?? {};
 		const userId = user.id;
+		console.log(plan)
 		if (!plan || !wallet_address) {
 			return res.status(400).json({
 				success: false,
@@ -161,8 +162,8 @@ const terminatePlan = (req, res) => {
 			}
 
 			connection.query(
-				"INSERT INTO orders (id, user_id, wallet_address, amount, status, tag) VALUES (?, ?, ?, ?, ?, ?)",
-				[uuid(), user.id, wallet_address, result[0].amount, "pending", 'terminate'],
+				"INSERT INTO orders (id, user_id, wallet_address, amount, status, tag,plan) VALUES (?, ?, ?, ?, ?, ?,?)",
+				[uuid(), user.id, wallet_address, result[0].amount, "pending", 'terminate',plan],
 				(err, result) => {
 					if (err) {
 						return res.status(400).json({
