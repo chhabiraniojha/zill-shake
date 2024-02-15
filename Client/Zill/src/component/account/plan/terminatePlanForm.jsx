@@ -7,13 +7,13 @@ import axios, { AxiosError } from "axios";
 function TerminationForm() {
 	const [searchParam, setSearchParam] = useSearchParams();
 
-	const { user, plans } = useContext(UserContext);
+	const { user, plans, orders } = useContext(UserContext);
 	const [openSuccessModal, setOpenSuccessModal] = useState(false);
 	const [walletAddress, setWalletAddress] = useState("");
 
-    const [getPlanDetails, setPlanDetails] = useState()
+	const [getPlanDetails, setPlanDetails] = useState();
 
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	const handleTerminationFormHandler = async (e) => {
 		e.preventDefault();
 		try {
@@ -28,7 +28,6 @@ function TerminationForm() {
 				})
 				.then(({ data }) => {
 					setOpenSuccessModal(true);
-					navigate('/')
 				})
 				.catch((err) => {
 					if (err instanceof AxiosError) {
@@ -43,9 +42,13 @@ function TerminationForm() {
 		}
 	};
 
-    useEffect(() => {
-        setPlanDetails(plans.find(plan => plan.plan_id === searchParam.get("plan")))
-    }, [plans])
+	const getTerminatePlanStatus = (plan) => orders?.filter((currentValue) => currentValue.plan === plan && currentValue.tag === "terminate")?.[0]?.status;
+
+	useEffect(() => {
+		if(getTerminatePlanStatus(searchParam.get('plan'))){
+			setOpenSuccessModal(true);
+		}
+	}, [orders]);
 
 	return (
 		<div className="h-full w-full flex items-center justify-center">
@@ -86,7 +89,7 @@ function TerminationForm() {
 				<Button type="submit" variant="danger" className="mb-2 mx-2">
 					Terminate
 				</Button>
-				<Link to={'/'}>
+				<Link to={"/"}>
 					<Button type="button" variant="primary" className="mb-2 mx-2">
 						Cancel
 					</Button>
@@ -98,9 +101,11 @@ function TerminationForm() {
 					<p>Your withdrawal termination is on status pending. Please wait for 1 ~ 3 days to transfer to your wallet.</p>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="success" onClick={() => setOpenSuccessModal(false)}>
-						Ok
-					</Button>
+					<Link to={'/'}>
+						<Button variant="success" onClick={() => setOpenSuccessModal(false)}>
+							Ok
+						</Button>
+					</Link>
 				</Modal.Footer>
 			</Modal>
 		</div>

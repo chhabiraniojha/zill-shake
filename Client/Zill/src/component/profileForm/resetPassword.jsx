@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import axios, { AxiosError } from "axios";
-import { sendOtp, verifyOtp } from "../../services/otp";
 import { CustomAlertContext } from "../../context/customAlertContext";
 import { Button, Spinner } from "react-bootstrap";
 
@@ -13,8 +12,8 @@ function ResetPassword() {
 		confirmPassword: "",
 	});
 	const [otp, setOtp] = useState("");
-	const [otpTimer, setOtpTimer] = useState('00:00');
-	const otpTimerId = useRef(null)
+	const [otpTimer, setOtpTimer] = useState("00:00");
+	const otpTimerId = useRef(null);
 	const [resendOtp, setResendOtp] = useState(false);
 	const [seePassword, setSeePassword] = useState(false);
 	const [seeConfirmPassword, setSeeConfirmPassword] = useState(false);
@@ -39,7 +38,7 @@ function ResetPassword() {
 	const handleOtp = async () => {
 		setOtpLoading(true);
 
-		if(form.phone === '') {
+		if (form.phone === "") {
 			setError({ field: "phone", message: "Phone number is required" });
 			setOtpLoading(false);
 			return;
@@ -48,40 +47,36 @@ function ResetPassword() {
 		axios
 			.post(`${import.meta.env.VITE_BASE_URL}/api/otp/send`, { phoneNumber: `+91${form.phone}` })
 			.then((res) => {
-				let second = 40;	
+				let second = 40;
 				otpTimerId.current = setInterval(() => {
-					second--
+					second--;
 					let min = Math.floor(second / 60);
 					let sec = second % 60;
 					if (min <= 0 && sec <= 0) {
 						clearInterval(otpTimerId.current);
 						otpTimerId.current = null;
 						setResendOtp(true);
-						setOtpTimer('00:00');
+						setOtpTimer("00:00");
 						return;
 					}
 					setOtpTimer(`${min}:${sec}`);
-				} , 1000);
+				}, 1000);
 			})
 			.catch((error) => {
-				// console.error(error);
-				if (error instanceof AxiosError) {
-					console.error(error);
-					setType("error");
-					setMessage(error.response.data.message);
-					setOpen(true);
-					setFormSubmitLoading(false)
-				}
-
-
-			}).finally(() => {
+				console.error(error);
+				setType("error");
+				setMessage(error.response?.data?.message);
+				setOpen(true);
+				setFormSubmitLoading(false);
+			})
+			.finally(() => {
 				setOtpLoading(false);
 			});
 	};
 
 	const { setOpen, setType, setMessage } = useContext(CustomAlertContext);
 
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -96,7 +91,7 @@ function ResetPassword() {
 			return;
 		}
 
-		if(form.password.length < 8) {
+		if (form.password.length < 8) {
 			setError({ field: "password", message: "Password must be at least 8 characters" });
 			return;
 		}
@@ -110,7 +105,6 @@ function ResetPassword() {
 			setError({ field: "confirmPassword", message: "Confirm password is required" });
 			return;
 		}
-
 
 		if (form.password !== form.confirmPassword) {
 			setError({ field: "confirmPassword", message: "Password and confirm password must be the same" });
@@ -133,14 +127,14 @@ function ResetPassword() {
 			setType("success");
 			setMessage("Password reset successfully");
 			setOpen(true);
-			navigate('/login')
+			navigate("/login");
 		} catch (error) {
+			console.error(error);
 			if (error instanceof AxiosError) {
-				console.error(error);
 				setType("error");
-				setMessage(error.response.data.message);
+				setMessage(error.response?.data?.message);
 				setOpen(true);
-				setFormSubmitLoading(false)
+				setFormSubmitLoading(false);
 			}
 		}
 	};
@@ -153,10 +147,9 @@ function ResetPassword() {
 	}, [error]);
 
 	useEffect(() => {
-
 		return () => {
 			clearInterval(otpTimerId.current);
-		}
+		};
 	}, []);
 
 	return (
@@ -190,26 +183,32 @@ function ResetPassword() {
 							<i class="fa fa-unlock-alt"></i> A new password
 						</b>
 					</label>
-					<input type={seePassword ? 'text' : 'password'} placeholder="Please enter Set password" name="password" value={form.password} onChange={handleInput} />
+					<input
+						type={seePassword ? "text" : "password"}
+						placeholder="Please enter Set password"
+						name="password"
+						value={form.password}
+						onChange={handleInput}
+					/>
 					{seePassword ? (
-							<img
-								width="20"
-								height="20"
-								className="password_input_eye"
-								src="https://img.icons8.com/ios-glyphs/30/000000/visible--v1.png"
-								alt="visible--v1"
-								onClick={() => setSeePassword(!seePassword)}
-							/>
-						) : (
-							<img
-								width="20"
-								height="20"
-								onClick={() => setSeePassword(!seePassword)}
-								className="password_input_eye"
-								src="https://img.icons8.com/ios-glyphs/30/blind.png"
-								alt="blind"
-							/>
-						)}
+						<img
+							width="20"
+							height="20"
+							className="password_input_eye"
+							src="https://img.icons8.com/ios-glyphs/30/000000/visible--v1.png"
+							alt="visible--v1"
+							onClick={() => setSeePassword(false)}
+						/>
+					) : (
+						<img
+							width="20"
+							height="20"
+							onClick={() => setSeePassword(true)}
+							className="password_input_eye"
+							src="https://img.icons8.com/ios-glyphs/30/blind.png"
+							alt="blind"
+						/>
+					)}
 					{error.field === "password" && (
 						<span className="error" style={{ color: "red" }}>
 							{error.message}
@@ -224,31 +223,31 @@ function ResetPassword() {
 						</b>
 					</label>
 					<input
-						type={seeConfirmPassword ? 'text' : 'password'}
+						type={seeConfirmPassword ? "text" : "password"}
 						placeholder="Enter Password"
 						name="confirmPassword"
 						onChange={handleInput}
 						value={form.confirmPassword}
 					/>
 					{seeConfirmPassword ? (
-							<img
-								width="20"
-								height="20"
-								className="password_input_eye"
-								src="https://img.icons8.com/ios-glyphs/30/000000/visible--v1.png"
-								alt="visible--v1"
-								onClick={() => setSeeConfirmPassword(!seePassword)}
-							/>
-						) : (
-							<img
-								width="20"
-								height="20"
-								onClick={() => setSeeConfirmPassword(!seePassword)}
-								className="password_input_eye"
-								src="https://img.icons8.com/ios-glyphs/30/blind.png"
-								alt="blind"
-							/>
-						)}
+						<img
+							width="20"
+							height="20"
+							className="password_input_eye"
+							src="https://img.icons8.com/ios-glyphs/30/000000/visible--v1.png"
+							alt="visible--v1"
+							onClick={() => setSeeConfirmPassword(!seeConfirmPassword)}
+						/>
+					) : (
+						<img
+							width="20"
+							height="20"
+							onClick={() => setSeeConfirmPassword(!seeConfirmPassword)}
+							className="password_input_eye"
+							src="https://img.icons8.com/ios-glyphs/30/blind.png"
+							alt="blind"
+						/>
+					)}
 					{error.field === "confirmPassword" && (
 						<span className="error" style={{ color: "red" }}>
 							{error.message}
@@ -262,28 +261,15 @@ function ResetPassword() {
 						</b>
 					</label>
 					<span className="verifcode">
-						<input
-							type="text"
-							name="phone"
-							placeholder="Please enter the confirmation code"
-							value={otp}
-							onChange={(e) => setOtp(e.target.value)}
-						/>
+						<input type="text" name="phone" placeholder="Please enter the confirmation code" value={otp} onChange={(e) => setOtp(e.target.value)} />
 					</span>
-					{
-						otpTimerId.current ? (
-							<span>{otpTimer}</span>
-						) : (
-							<Button
-								onClick={handleOtp}
-								type="button"
-								className="my-2"
-								disabled={otpLoading}
-							>
-								{otpLoading && <Spinner size="sm" className="custom-spinner" />} send
-							</Button>
-						)
-					}
+					{otpTimerId.current ? (
+						<span>{otpTimer}</span>
+					) : (
+						<Button onClick={handleOtp} type="button" className="my-2" disabled={otpLoading}>
+							{otpLoading && <Spinner size="sm" className="custom-spinner" />} send
+						</Button>
+					)}
 				</div>
 				{error.field === "otp" && (
 					<span className="error" style={{ color: "red" }}>
@@ -291,7 +277,7 @@ function ResetPassword() {
 					</span>
 				)}
 				<button type="submit" className="clearfix">
-					{formSubmitLoading && <Spinner size="sm"/>} Reset
+					{formSubmitLoading && <Spinner size="sm" />} Reset
 				</button>
 			</form>
 		</>

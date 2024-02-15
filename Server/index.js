@@ -26,11 +26,11 @@ app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use(
 	cors({
-		origin: "https://zillmoney.in",
-		credentials: true,
+    origin: "http://localhost:5173",
+    credentials: true,
 	})
-);
-// origin: "http://localhost:5173",
+  );
+  // origin: "https://zillmoney.in",
 // origin: "https://zillmoney.in",
 
 

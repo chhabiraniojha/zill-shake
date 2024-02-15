@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useDebugValue, useState } from "react";
 import { Link } from "react-router-dom";
 import Bronze from "../../../assets/img/mamberShipe/bronze.png";
 import Copper from "../../../assets/img/mamberShipe/copper.png";
@@ -27,14 +27,15 @@ function PlaneShow() {
 	const getBuyPlanStatus = (plan) => orders?.filter((currentValue) => currentValue.plan === plan && currentValue.tag === "buy")?.[0]?.status;
 	const getTerminatePlanStatus = (plan) => orders?.filter((currentValue) => currentValue.plan === plan && currentValue.tag === "terminate")?.[0]?.status;
 
-	useEffect(() => {
-
-	}, [user, wallet, plans, orders]);
 
 	const terminatePlan = (plan) => {
 		setSelectedPlan(plan);
 		setShowWarning(true);
 	};
+
+	useEffect(() => {
+		console.log(orders.filter((cv) => cv.tag === 'terminate'))
+	}, [])
 
 	return (
 		<>

@@ -6,15 +6,15 @@ const serviceSid = process.env.TWILIO_SERVICE_SID;
 
 const sendOTP = (req, res) => {
 	const { phoneNumber } = req.body;
-
-	connection.query("Select * from users where phone = ?", [phoneNumber.replace("+91","")], (err, result) => {
+	const phoneWithOutCountryCode = phoneNumber.replace("+91", "");
+	connection.query("Select * from users where phone = ?", [phoneWithOutCountryCode], (err, result) => {
 		if (err) {
 			console.log("db",err);
 			return res.status(500).json({ message: "Failed to send OTP" });
 		}
-		if (result.length===0){
-			// console.log(err);
-			return res.status(500).json({ message: "Failed to send OTP" });
+		if (result.length === 0){
+			console.log("isse error aa rha hai", err);
+			return res.status(500).json({ message: "phone number is not registered" });
 		}
 
 		client.verify.v2
@@ -24,7 +24,7 @@ const sendOTP = (req, res) => {
 				res.status(200).json({ message: "OTP sent successfully" });
 			})
 			.catch((error) => {
-				
+				console.log('error twilio se aa rha hai',error)
 				res.status(500).json({ error: "Failed to send OTP" });
 			});
 	});

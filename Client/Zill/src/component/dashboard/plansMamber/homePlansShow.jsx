@@ -22,7 +22,7 @@ function homePlansShow() {
 
 	const isPlanActive = useCallback((plan) => plans.filter((currentValue) => currentValue.plan_id === plan)?.[0], [plans]);
 
-	const terminatePlan = (plan) => plans.filter((currentValue) => currentValue.plan_id === plan)?.[0];
+	const getTerminatePlanStatus = (plan) => orders?.filter((currentValue) => currentValue.plan === plan && currentValue.tag === "terminate")?.[0]?.status;
 
 	return (
 		<>

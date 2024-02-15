@@ -158,7 +158,7 @@ function Login() {
 						</Link>
 					</div>
 					<div className="services_tot_pot">
-						<Link to="">
+						<Link to="/support">
 							<i class="fa fa-headphones"></i>
 							<p>Customer Service</p>
 						</Link>
