@@ -39,7 +39,7 @@ function ResetPassword() {
 	const handleOtp = async () => {
 		setOtpLoading(true);
 
-		if(phone === '') {
+		if(form.phone === '') {
 			setError({ field: "phone", message: "Phone number is required" });
 			setOtpLoading(false);
 			return;
@@ -64,7 +64,16 @@ function ResetPassword() {
 				} , 1000);
 			})
 			.catch((error) => {
-				console.error(error);
+				// console.error(error);
+				if (error instanceof AxiosError) {
+					console.error(error);
+					setType("error");
+					setMessage(error.response.data.message);
+					setOpen(true);
+					setFormSubmitLoading(false)
+				}
+
+
 			}).finally(() => {
 				setOtpLoading(false);
 			});

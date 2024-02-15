@@ -47,14 +47,14 @@ function PlaneShow() {
 					</div>
 					<div className="card-content">
 						<p className="card-content-option true">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get 0.19 $ Daily As Interest
 						</p>
 						<p className="card-content-option false">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get Unlimited Referal Benifit
 						</p>
 					</div>
 					<div className="card-footer">
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<p>We are government approved Trading Institution and rewords you guaranteed</p>
 						{isPlanActive("bronze") ? (
 							<button
 								className="card-footer-btn"
@@ -82,14 +82,14 @@ function PlaneShow() {
 					</div>
 					<div className="card-content">
 						<p className="card-content-option true">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get 0.38 $ Daily As Interest
 						</p>
 						<p className="card-content-option false">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get Unlimited Referal Benifit
 						</p>
 					</div>
 					<div className="card-footer">
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<p>We are government approved Trading Institution and rewords you guaranteed</p>
 						{isPlanActive("copper") ? (
 							<button
 								onClick={() => {
@@ -117,14 +117,14 @@ function PlaneShow() {
 					</div>
 					<div className="card-content">
 						<p className="card-content-option true">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get 0.63 $ Daily As Interest
 						</p>
 						<p className="card-content-option false">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get Unlimited Referal Benifit
 						</p>
 					</div>
 					<div className="card-footer">
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<p>We are government approved Trading Institution and rewords you guaranteed</p>
 						{isPlanActive("silver") ? (
 							<button
 								onClick={() => {
@@ -152,14 +152,14 @@ function PlaneShow() {
 					</div>
 					<div className="card-content">
 						<p className="card-content-option true">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get 1.25 $ Daily As Interest
 						</p>
 						<p className="card-content-option false">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get Unlimited Referal Benifit
 						</p>
 					</div>
 					<div className="card-footer">
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<p>We are government approved Trading Institution and rewords you guaranteed</p>
 						{isPlanActive("gold") ? (
 							<button
 								onClick={() => {
@@ -187,14 +187,14 @@ function PlaneShow() {
 					</div>
 					<div className="card-content">
 						<p className="card-content-option true">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get 2.5 $ Daily As Interest
 						</p>
 						<p className="card-content-option false">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get Unlimited Referal Benifit
 						</p>
 					</div>
 					<div className="card-footer">
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<p>We are government approved Trading Institution and rewords you guaranteed</p>
 						{isPlanActive("diamond") ? (
 							<button
 								onClick={() => {
@@ -222,14 +222,14 @@ function PlaneShow() {
 					</div>
 					<div className="card-content">
 						<p className="card-content-option true">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get 5 $ Daily As Interest
 						</p>
 						<p className="card-content-option false">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get Unlimited Referal Benifit
 						</p>
 					</div>
 					<div className="card-footer">
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<p>We are government approved Trading Institution and rewords you guaranteed</p>
 						{isPlanActive("platinum") ? (
 							<button
 								onClick={() => {
@@ -257,14 +257,14 @@ function PlaneShow() {
 					</div>
 					<div className="card-content">
 						<p className="card-content-option true">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get 10$ $ Daily As Interest
 						</p>
 						<p className="card-content-option false">
-							<i class="fa fa-check"></i> Lorem ipsum dolor
+							<i class="fa fa-check"></i> Get Unlimited Referal Benifit
 						</p>
 					</div>
 					<div className="card-footer">
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<p>We are government approved Trading Institution and rewords you guaranteed</p>
 						{isPlanActive("vip") ? (
 							<button
 								onClick={() => {

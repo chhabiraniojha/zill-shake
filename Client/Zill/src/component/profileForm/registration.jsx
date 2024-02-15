@@ -92,35 +92,35 @@ function Registr() {
 				return;
 			}
 
-			if (form.password.length < 10) {
+			if (form.password.length < 8) {
 				setType("error");
-				setMessage("Password must be 10 characters long and should contain at least one letter and one number");
+				setMessage("Password must be 8 characters long and should contain at least one letter and one number");
 				setOpen(true);
 				setError({
 					field: "password",
-					message: "password must be 10 characters long and should contain at least one letter and one number",
+					message: "password must be 8 characters long and should contain at least one letter and one number",
 				});
 				return;
 			}
 
 			if (!/[a-zA-Z]/.test(form.password)) {
 				setType("error");
-				setMessage("password should be 10 characters long and should contain at least one letter and one number");
+				setMessage("password should be 8 characters long and should contain at least one letter and one number");
 				setOpen(true);
 				setError({
 					field: "password",
-					message: "password should be 10 characters long and should contain at least one letter and one number",
+					message: "password should be 8 characters long and should contain at least one letter and one number",
 				});
 				return;
 			}
 
 			if (!/\d/.test(form.password)) {
 				setType("error");
-				setMessage("password should be 10 characters long and should contain at least one letter and one number");
+				setMessage("password should be 8 characters long and should contain at least one letter and one number");
 				setOpen(true);
 				setError({
 					field: "password",
-					message: "password should be 10 characters long and should contain at least one letter and one number",
+					message: "password should be 8 characters long and should contain at least one letter and one number",
 				});
 				return;
 			}

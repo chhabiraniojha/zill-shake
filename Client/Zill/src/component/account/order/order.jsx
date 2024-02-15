@@ -18,7 +18,7 @@ function order() {
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/user/orders?${query.toString()}`, { withCredentials: true })
 			.then(({ data }) => {
-				setOrders(data.result);
+				setOrders(data.result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 				setLoading(false);
 				setTotalPages(data.totalPages);
 			})

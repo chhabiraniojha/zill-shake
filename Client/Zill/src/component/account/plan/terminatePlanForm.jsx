@@ -95,7 +95,7 @@ function TerminationForm() {
 			<Modal show={openSuccessModal} onHide={() => setOpenSuccessModal(false)} centered>
 				<Modal.Header>Success</Modal.Header>
 				<Modal.Body>
-					<p>Your withdrawal request is on status pending. Please wait for 1 ~ 3 days to transfer to your wallet.</p>
+					<p>Your withdrawal termination is on status pending. Please wait for 1 ~ 3 days to transfer to your wallet.</p>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="success" onClick={() => setOpenSuccessModal(false)}>

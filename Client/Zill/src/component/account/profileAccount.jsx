@@ -51,7 +51,7 @@ function profileAccount() {
 							<b>UID</b> | {user?.id}{" "}
 						</p>
 						<p className="joinDate">
-							Phone: <span>{user?.phone}</span>
+							<b>Phone:</b><span>{user?.phone}</span>
 						</p>
 					</div>
 				</div>

@@ -10,7 +10,10 @@ const sendOTP = (req, res) => {
 	connection.query("Select * from users where phone = ?", [phoneNumber], (err, result) => {
 		if (err) {
 			console.log(err);
-			return res.status(500).json({ error: "Failed to send OTP" });
+			return res.status(500).json({ message: "Failed to send OTP" });
+		}
+		if (result.length==0){
+			return res.status(500).json({ message: "Failed to send OTP" });
 		}
 
 		client.verify.v2
