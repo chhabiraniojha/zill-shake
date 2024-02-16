@@ -16,7 +16,7 @@ function homePlansShow() {
 	const [showWarning, setShowWarning] = useState(false);
 	const [selectedPlan, setSelectedPlan] = useState(null);
 
-	const { plans, user } = useContext(UserContext);
+	const { plans, user, orders } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -48,8 +48,9 @@ function homePlansShow() {
 								onClick={() => {
 									setSelectedPlan("bronze");
 									setShowWarning(true);
-								}}>
-								Terminate Plan
+								}}
+								disabled={getTerminatePlanStatus("bronze")}>
+							{getTerminatePlanStatus("vip") ? getTerminatePlanStatus('vip') === 'pending' ? 'Terminating' : 'Terminated' : "Terminate Plan"}
 							</button>
 						</div>
 						<div className="lockPlan">
@@ -76,8 +77,9 @@ function homePlansShow() {
 								onClick={() => {
 									setSelectedPlan("copper");
 									setShowWarning(true);
-								}}>
-								Terminate Plan
+								}}
+								disabled={getTerminatePlanStatus("copper")}>
+							{getTerminatePlanStatus("copper") ? getTerminatePlanStatus('copper') === 'pending' ? 'Terminating' : 'Terminated' : "Terminate Plan"}
 							</button>
 						</div>
 						<div className="lockPlan ">
@@ -104,8 +106,9 @@ function homePlansShow() {
 								onClick={() => {
 									setSelectedPlan("silver");
 									setShowWarning(true);
-								}}>
-								Terminate Plan
+								}}
+								disabled={getTerminatePlanStatus("silver")}>
+							{getTerminatePlanStatus("silver") ? getTerminatePlanStatus('silver') === 'pending' ? 'Terminating' : 'Terminated' : "Terminate Plan"}
 							</button>
 						</div>
 						<div className="lockPlan">
@@ -132,8 +135,9 @@ function homePlansShow() {
 								onClick={() => {
 									setSelectedPlan("gold");
 									setShowWarning(true);
-								}}>
-								Terminate Plan
+								}}
+								disabled={getTerminatePlanStatus("gold")}>
+							{getTerminatePlanStatus("gold") ? getTerminatePlanStatus('gold') === 'pending' ? 'Terminating' : 'Terminated' : "Terminate Plan"}
 							</button>
 						</div>
 						<div className="lockPlan">
@@ -160,8 +164,9 @@ function homePlansShow() {
 								onClick={() => {
 									setSelectedPlan("diamond");
 									setShowWarning(true);
-								}}>
-								Terminate Plan
+								}}
+								disabled={getTerminatePlanStatus("diamond")}>
+							{getTerminatePlanStatus("diamond") ? getTerminatePlanStatus('diamond') === 'pending' ? 'Terminating' : 'Terminated' : "Terminate Plan"}
 							</button>
 						</div>
 						<div className="lockPlan">
@@ -188,8 +193,9 @@ function homePlansShow() {
 								onClick={() => {
 									setSelectedPlan("platinum");
 									setShowWarning(true);
-								}}>
-								Terminate Plan
+								}}
+								disabled={getTerminatePlanStatus("platinum")}>
+							{getTerminatePlanStatus("platinum") ? getTerminatePlanStatus('platinum') === 'pending' ? 'Terminating' : 'Terminated' : "Terminate Plan"}
 							</button>
 						</div>
 						<div className="lockPlan">
@@ -218,8 +224,9 @@ function homePlansShow() {
 							onClick={() => {
 								setSelectedPlan("vip");
 								setShowWarning(true);
-							}}>
-							Terminate Plan
+							}}
+							disabled={getTerminatePlanStatus("vip")}>
+							{getTerminatePlanStatus("vip") ? getTerminatePlanStatus('vip') === 'pending' ? 'Terminating' : 'Terminated' : "Terminate Plan"}
 						</button>
 					</div>
 					<div className="lockPlan">

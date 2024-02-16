@@ -188,7 +188,9 @@ const resetPassword = async (req, res) => {
 			});
 		}
 
-		connection.query(`SELECT * FROM users WHERE phone = ?`, [phone], async (err, results) => {
+		const phoneWithoutCountryCode = phone.replace('+91', '')
+
+		connection.query(`SELECT * FROM users WHERE phone = ?`, [phoneWithoutCountryCode], async (err, results) => {
 			if (err) {
 				console.log(err);
 				return res.status(400).json({
@@ -205,7 +207,7 @@ const resetPassword = async (req, res) => {
 			}
 
 			const hashedPassword = await bcrypt.hash(password, 10);
-			connection.query(`UPDATE users SET password = ? WHERE phone = ?`, [hashedPassword, phone], (err, results) => {
+			connection.query(`UPDATE users SET password = ? WHERE phone = ?`, [hashedPassword, phoneWithoutCountryCode], (err, results) => {
 				if (err) {
 					console.log(err);
 					return res.status(400).json({
