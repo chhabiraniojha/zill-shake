@@ -93,7 +93,7 @@ function Login() {
 		<>
 			<form className="Registr_ct Login_ct" onSubmit={handleSubmit}>
 				<h3>Log in</h3>
-				<p>Please log in with your phone number. If you forget your password, please tap on forgot passwort button</p>
+				<p>Please log in with your phone number. If you forget your password, please tap on forgot password button</p>
 				<div className="register_phone">
 					<i class="fa fa-mobile"></i>
 					<p>Login with Phone</p>
