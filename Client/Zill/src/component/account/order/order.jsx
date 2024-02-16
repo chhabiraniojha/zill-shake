@@ -56,7 +56,7 @@ function order() {
 							{orders.length === 0 && <h5>No Orders</h5>}
 							{loading && <h5>Loading...</h5>}
 							{orders?.map((order) => {
-								if (order.status === "pending") {
+								if (order.status === "pending" && order.tag === 'buy') {
 									return (
 										<div className="claimReward panding">
 											<div className="icon_right">

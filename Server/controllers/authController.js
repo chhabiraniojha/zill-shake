@@ -166,9 +166,11 @@ const loginUser = async (req, res) => {
 const resetPassword = async (req, res) => {
 	try {
 		const { phone, password, otp } = req.body ?? {};
+		console.table({ phone, password, otp });
 		
 		// check otp
 		const result = await verifyOTP(phone, otp);
+		console.log(result)
 
 		if (!result) {
 			return res.status(400).json({
