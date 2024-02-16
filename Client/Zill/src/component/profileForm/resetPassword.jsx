@@ -156,7 +156,7 @@ function ResetPassword() {
 		<>
 			<form onSubmit={handleSubmit} className="Registr_ct">
 				<h3>Forgot password</h3>
-				<p>Please retrieve/change your password through your mobile phone number or email</p>
+				<p>Please retrieve/change your password through your mobile phone number</p>
 				<div className="register_phone">
 					<i class="fa fa-mobile"></i>
 					<p>Reset phone </p>

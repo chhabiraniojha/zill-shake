@@ -186,7 +186,7 @@ function Registr() {
 		<>
 			<div className="Registr_ct">
 				<h3>Register</h3>
-				<p>Please register by phone number or email</p>
+				<p>Please register by phone number</p>
 				<div className="register_phone">
 					<i className="fa fa-mobile"></i>
 					<p>Register your phone</p>
