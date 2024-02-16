@@ -24,9 +24,15 @@ const app = express();
 app.use(bodyParser.json({extended:false}));
 app.use(cookieParser(process.env.JWT_SECRET));
 
+// app.use(
+// 	cors({
+// 		origin: "https://zillmoney.in",
+// 		credentials: true,
+// 	})
+// );
 app.use(
 	cors({
-		origin: "https://zillmoney.in",
+		origin: "http://localhost:5173",
 		credentials: true,
 	})
 );
