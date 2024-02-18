@@ -17,25 +17,27 @@ const { connection } = require("./sql/connection");
 // db
 require("./sql/connection");
 
-const port = 80;
+const port = 3000;
 
 const app = express();
+
+app.use(
+	cors({
+		origin: "http://localhost:5173",
+		credentials: true,
+	})
+  );
 
 app.use(bodyParser.json({extended:false}));
 app.use(cookieParser(process.env.JWT_SECRET));
 
-app.use(
-	cors({
-		origin: "https://zillmoney.in",
-		credentials: true,
-	})
-);
 // app.use(
 // 	cors({
-// 		origin: "http://localhost:5173",
+// 		origin: "https://zillmoney.in",
 // 		credentials: true,
 // 	})
-//   );
+// );
+
   // origin: "https://zillmoney.in",
 // origin: "https://zillmoney.in",
 
@@ -61,7 +63,7 @@ const tables = [
       reward decimal(10,5) NOT NULL,
       created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
       status varchar(255) NOT NULL,
-      invite_code int NOT NULL,
+      invite_code varchar(255) NOT NULL,
       commission decimal(10,5) NOT NULL,
       phone varchar(255) NOT NULL,
       PRIMARY KEY (id)
