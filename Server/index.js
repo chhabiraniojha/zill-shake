@@ -17,23 +17,23 @@ const { connection } = require("./sql/connection");
 // db
 require("./sql/connection");
 
-const port = 3000;
+const port = 80;
 
 const app = express();
 
-app.use(
-	cors({
-		origin: "http://localhost:5173",
-		credentials: true,
-	})
-  );
 
 app.use(bodyParser.json({extended:false}));
 app.use(cookieParser(process.env.JWT_SECRET));
 
+app.use(
+	cors({
+		origin: "https://zillmoney.in",
+		credentials: true,
+	})
+);
 // app.use(
 // 	cors({
-// 		origin: "https://zillmoney.in",
+// 		origin: "http://localhost:5173",
 // 		credentials: true,
 // 	})
 // );
