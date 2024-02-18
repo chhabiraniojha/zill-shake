@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCallback, useContext, useRef, useState } from "react";
 import "./style.css";
 import { useEffect } from "react";
@@ -9,6 +9,7 @@ import { CustomAlertContext } from "../../context/customAlertContext";
 
 function ClaimReward() {
 	const { plan } = useParams();
+	const { plans: activePlans } = useContext(UserContext)
 	const capitalizedPlan = plan.charAt(0).toUpperCase() + plan.slice(1);
 	const [tasks, setTasks] = useState([]);
 	const [claimedTasks, setClaimedTasks] = useState([]);
@@ -41,6 +42,8 @@ function ClaimReward() {
 			})
 	};
 
+	const navigate = useNavigate()
+
 	useEffect(() => {
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/tasks/${plan}`, {
@@ -69,12 +72,20 @@ function ClaimReward() {
 					console.log(err.response.data.message);
 				}
 			});
+
+			const isPlanIsActive = activePlans.filter((cv) => cv.plan_id === plan).length > 0
+
+			if(!isPlanIsActive) {
+				navigate('/')
+			}
 	}, [loading]);
 
 	const isTasksClaimed = useCallback(
 		(id) => !!claimedTasks.find((task) => task?.task == id),
 		[claimedTasks]
 	);
+
+
 
 	return (
 		<>
