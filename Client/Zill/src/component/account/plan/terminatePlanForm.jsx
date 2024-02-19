@@ -76,7 +76,7 @@ function TerminationForm() {
 					<label htmlFor="amount" className="form-label">
 						Amount
 					</label>
-					<input type="number" className="form-control" id="amount" value={getPlanDetails?.amount} readOnly required />
+					<input type="number" className="form-control" id="amount" value={plans[0]?.amount} readOnly required />
 				</div>
 				<div className="mb-3">
 					<label htmlFor="plan" className="form-label">

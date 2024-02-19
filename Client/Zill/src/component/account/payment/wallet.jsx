@@ -187,7 +187,7 @@ function Wallet() {
 												</div>
 												<div className="content_center">
 												<h5 title={item.id}>
-														<b>Transactions Id <br/> ( {item.tag} )</b> {('item.id').split('-').splice(0, 1).join('-')}
+														<b>Transactions Id <br/> ( {item.tag} )</b> {(item.id).split('-').splice(0, 1).join('-')}
 													</h5>
 													<p>{new Date(item.created_at).toLocaleDateString()}</p>
 												</div>
