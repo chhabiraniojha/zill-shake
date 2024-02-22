@@ -117,7 +117,7 @@ const addPlan = (req, res) => {
 
 						res.json({
 							success: true,
-							message: "Plan Buying Request SentIt will Be activated within 24 Hours",
+							message: "Plan Buying Request Sent. Plan will Be activated within 24 Hours",
 						});
 					}
 				);

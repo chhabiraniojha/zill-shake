@@ -16,7 +16,7 @@ function Promotion() {
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/user/todays-commission`, { withCredentials: true })
 			.then(({ data }) => {
-				setTodaysCommission(data.result.reduce((acc, item) => acc + item?.totalCommission, 0));
+				setTodaysCommission(data.result.reduce((acc, item) => acc + (parseFloat(item?.totalCommission) || 0), 0));
 			})
 			.catch((err) => {
 				console.log(err);
