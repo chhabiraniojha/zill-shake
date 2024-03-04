@@ -108,7 +108,13 @@ function Wallet() {
 						0xCeED22695f478bcac129BAb19db57C6dC3E8aDf3
 					</span>
 					<input id="demoInput" value="sss" style={{ opacity: "0", position: "absolute" }} readonly="" />
-					<i className="fa fa-copy"></i>
+					<i className="fa fa-copy" onClick={(e) => {
+											navigator.clipboard.writeText("0xCeED22695f478bcac129BAb19db57C6dC3E8aDf3");
+											e.target.innerText = " Copied ";
+											setTimeout(() => {
+												e.target.innerHTML = ``;
+											}, 1000);
+										}}></i>
 				</div>
 			</div>
 

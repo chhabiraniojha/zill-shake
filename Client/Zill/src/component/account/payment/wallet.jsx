@@ -268,7 +268,7 @@ function Wallet() {
 					<form onSubmit={handleConfirmationFormSubmit}>
 						<div className="mb-3">
 							<label htmlFor="walletAddress" className="form-label">
-								Wallet Address
+								Wallet Address(Give Only BEP20 Address)
 							</label>
 							<input
 								type="text"
