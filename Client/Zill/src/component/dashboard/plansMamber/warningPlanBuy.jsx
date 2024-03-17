@@ -10,7 +10,8 @@ const WarningModal = ({ showWarning, handleShowWarning, selectedPlan }) => {
 				<h6>Are you sure you want to terminate this plan?</h6>
 			</Modal.Header>
 			<Modal.Body>
-				<p>This action cannot be undone</p>
+				<p>This action cannot be undone.</p>
+				<p>10% charges will be applied for processing means if your termination plan cost is 10$ then you will get 9$.</p>
 			</Modal.Body>
 			<Modal.Footer>
 				<Link to={`/terminate?plan=${selectedPlan}`}>
