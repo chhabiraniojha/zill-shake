@@ -11,7 +11,7 @@ const CommissionDetails = () => {
                     gap: 20px;
                     justify-content: center;
                     align-items: center;
-                    margin-top: 500px;
+                    {/* margin-top: 500px; */}
                     padding-bottom: 500px;
                 }
                 `}
@@ -19,6 +19,9 @@ const CommissionDetails = () => {
 			<div className="commission-details">
 				<h1>Commission Details</h1>
 				<h5>
+					zillmoney Referrals Programme-Refer your friend and get 15% reward daily on his successful reward claim.This Referral bonus is applied to all plans.
+				</h5>
+				{/* <h5>
 					Bronze Referrals Programme-Refer your friend and get 5% reward daily on his successful reward claim. If you refer 20 friends for Bronze plan
 					you will get will get $0.1875 daily.
 				</h5>
@@ -52,7 +55,7 @@ const CommissionDetails = () => {
 				<h5>
 					VIP Referrals Programme-Refer your friend and get 35% reward daily on his successful reward claim. If you refer 20 friends for VIP plan you
 					will get will get $70 daily.
-				</h5>
+				</h5> */}
 			</div>
 		</>
 	);
