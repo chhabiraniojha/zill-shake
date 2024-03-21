@@ -19,7 +19,7 @@ const CommissionDetails = () => {
 			<div className="commission-details">
 				<h1>Commission Details</h1>
 				<h5>
-					zillmoney Referrals Programme-Refer your friend and get 15% reward daily on his successful reward claim.This Referral bonus is applied to all plans.
+					zillmoney Referrals Programme-Refer your friend and get 15% reward daily on his/her successful interest claim.This referral bonus is applied to all plans.
 				</h5>
 				{/* <h5>
 					Bronze Referrals Programme-Refer your friend and get 5% reward daily on his successful reward claim. If you refer 20 friends for Bronze plan
